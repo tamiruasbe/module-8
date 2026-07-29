@@ -16,7 +16,7 @@ import {
 
   templateUrl: './enrollment-form.html',
 })
-export class EnrollmentFormComponent {
+export class EnrollmentForm {
   // ==========================================================
   // Dependency Injection
   // ==========================================================
