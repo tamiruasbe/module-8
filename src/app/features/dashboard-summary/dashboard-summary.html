@@ -1,0 +1,10 @@
+<h2>Dashboard Summary</h2>
+
+<p>Total Enrollments: {{ store.entities().length }}</p>
+
+<p>Pending: {{ store.pendingCount() }}</p>
+
+<p>
+  Approved:
+  {{ store.entities().filter((e) => e.status === 'Approved').length }}
+</p>
