@@ -25,6 +25,10 @@ export const EnrollmentStore = signalStore(
   // Computed Signals
   withComputed((store) => ({
     pendingCount: computed(() => store.entities().filter((e) => e.status === 'Pending').length),
+
+    approvedCount: computed(() => store.entities().filter((e) => e.status === 'Approved').length),
+
+    rejectedCount: computed(() => store.entities().filter((e) => e.status === 'Rejected').length),
   })),
 
   // Store Methods
