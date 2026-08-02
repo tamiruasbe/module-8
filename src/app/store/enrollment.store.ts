@@ -45,11 +45,21 @@ export const EnrollmentStore = signalStore(
 
         concatMap(() =>
           api.getAll().pipe(
-            tap((rows) =>
-              patchState(store, setAllEntities(rows), {
+            // tap((rows) =>
+            //   patchState(store, setAllEntities(rows), {
+            //     isLoading: false,
+            //   }),
+            // ),
+            tap((rows) => {
+              const fixedRows = rows.map((r) => ({
+                ...r,
+                status: r.status || 'Pending',
+              }));
+
+              patchState(store, setAllEntities(fixedRows), {
                 isLoading: false,
-              }),
-            ),
+              });
+            }),
 
             catchError((err) => {
               patchState(store, {
@@ -79,27 +89,27 @@ export const EnrollmentStore = signalStore(
           );
         }),
 
-        concatMap((id) =>
-          api.approve(id).pipe(
-            catchError(() => {
-              patchState(
-                store,
-                updateEntity({
-                  id,
-                  changes: {
-                    status: 'Pending',
-                  },
-                }),
-              );
+        // concatMap((id) =>
+        //   api.approve(id).pipe(
+        //     catchError(() => {
+        //       patchState(
+        //         store,
+        //         updateEntity({
+        //           id,
+        //           changes: {
+        //             status: 'Pending',
+        //           },
+        //         }),
+        //       );
 
-              patchState(store, {
-                error: 'Server rejected the approval. Check enrollment constraints.',
-              });
+        //       patchState(store, {
+        //         error: 'Server rejected the approval. Check enrollment constraints.',
+        //       });
 
-              return EMPTY;
-            }),
-          ),
-        ),
+        //       return EMPTY;
+        //     }),
+        //   ),
+        // ),
       ),
     ),
   })),
