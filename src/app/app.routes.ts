@@ -22,6 +22,14 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/student-dashboard/student-dashboard').then((m) => m.StudentDashboard),
   },
+  {
+    path: 'instructor-dashboard',
+
+    loadComponent: () =>
+      import('./features/instructor-dashboard/instructor-dashboard').then(
+        (m) => m.InstructorDashboard,
+      ),
+  },
 
   {
     path: '',

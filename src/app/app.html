@@ -1,2 +1,13 @@
-<!-- <h1>Welcome to My App</h1> -->
-<router-outlet />
+<mat-toolbar color="primary" class="app-toolbar">
+  <div class="nav-links">
+    <a mat-button routerLink="/dashboard" routerLinkActive="active-link">Dashboard</a>
+    <a mat-button routerLink="/instructor-dashboard" routerLinkActive="active-link"
+      >Instructor Dashboard</a
+    >
+    <a mat-button routerLink="/enrollments" routerLinkActive="active-link">Enrollments</a>
+    <a mat-button routerLink="/enroll" routerLinkActive="active-link">Enroll Form</a>
+    <a mat-button routerLink="/courses/101" routerLinkActive="active-link">Course Detail</a>
+  </div>
+</mat-toolbar>
+
+<router-outlet></router-outlet>

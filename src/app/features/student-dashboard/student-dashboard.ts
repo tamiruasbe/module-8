@@ -11,7 +11,7 @@ import { CourseService } from '../../services/course.service';
   selector: 'app-student-dashboard',
   standalone: true,
   // imports: [CourseCard],
-  imports: [CourseCard, RouterLink], // This tells Angular: "I use CourseCardComponent in my template"
+  imports: [CourseCard], // This tells Angular: "I use CourseCardComponent in my template"
   templateUrl: './student-dashboard.html',
   styleUrl: './student-dashboard.scss',
 })

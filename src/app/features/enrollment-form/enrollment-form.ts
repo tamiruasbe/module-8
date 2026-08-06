@@ -10,6 +10,7 @@ import {
 @Component({
   selector: 'app-enrollment-form',
   standalone: true,
+  styleUrls: ['./enrollment-form.scss'],
 
   // Required for Reactive Forms
   imports: [ReactiveFormsModule],
