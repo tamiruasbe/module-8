@@ -30,6 +30,13 @@ export const routes: Routes = [
         (m) => m.InstructorDashboard,
       ),
   },
+  {
+    path: 'grade-submission',
+    loadComponent: () =>
+      import('./features/grade-submission/grade-submission.component').then(
+        (m) => m.GradeSubmissionComponent,
+      ),
+  },
 
   {
     path: '',

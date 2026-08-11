@@ -1,3 +1,120 @@
+// import { computed, inject } from '@angular/core';
+// import { signalStore, withComputed, withMethods, patchState, withState } from '@ngrx/signals';
+
+// import { withEntities, setAllEntities, updateEntity } from '@ngrx/signals/entities';
+
+// import { rxMethod } from '@ngrx/signals/rxjs-interop';
+
+// import { pipe, concatMap, tap, catchError, EMPTY } from 'rxjs';
+
+// import { EnrollmentService } from '../services/enrollment';
+// import { Enrollment } from '../models/enrollment.model';
+
+// export const EnrollmentStore = signalStore(
+//   { providedIn: 'root' },
+
+//   // UI State
+//   withState({
+//     isLoading: false,
+//     error: null as string | null,
+//   }),
+
+//   // Entity State
+//   withEntities<Enrollment>(),
+
+//   // Computed Signals
+//   withComputed((store) => ({
+//     pendingCount: computed(() => store.entities().filter((e) => e.status === 'Pending').length),
+
+//     approvedCount: computed(() => store.entities().filter((e) => e.status === 'Approved').length),
+
+//     rejectedCount: computed(() => store.entities().filter((e) => e.status === 'Rejected').length),
+//   })),
+
+//   // Store Methods
+//   withMethods((store, api = inject(EnrollmentService)) => ({
+//     // Load all enrollments
+//     loadEnrollments: rxMethod<void>(
+//       pipe(
+//         tap(() =>
+//           patchState(store, {
+//             isLoading: true,
+//             error: null,
+//           }),
+//         ),
+
+//         concatMap(() =>
+//           api.getAll().pipe(
+//             // tap((rows) =>
+//             //   patchState(store, setAllEntities(rows), {
+//             //     isLoading: false,
+//             //   }),
+//             // ),
+//             tap((rows) => {
+//               const fixedRows = rows.map((r) => ({
+//                 ...r,
+//                 status: r.status || 'Pending',
+//               }));
+
+//               patchState(store, setAllEntities(fixedRows), {
+//                 isLoading: false,
+//               });
+//             }),
+
+//             catchError((err) => {
+//               patchState(store, {
+//                 isLoading: false,
+//                 error: err.message,
+//               });
+
+//               return EMPTY;
+//             }),
+//           ),
+//         ),
+//       ),
+//     ),
+
+//     // Approve enrollment (Optimistic Update)
+//     approveEnrollment: rxMethod<string>(
+//       pipe(
+//         tap((id) => {
+//           patchState(
+//             store,
+//             updateEntity({
+//               id,
+//               changes: {
+//                 status: 'Approved',
+//               },
+//             }),
+//           );
+//         }),
+
+//         // concatMap((id) =>
+//         //   api.approve(id).pipe(
+//         //     catchError(() => {
+//         //       patchState(
+//         //         store,
+//         //         updateEntity({
+//         //           id,
+//         //           changes: {
+//         //             status: 'Pending',
+//         //           },
+//         //         }),
+//         //       );
+
+//         //       patchState(store, {
+//         //         error: 'Server rejected the approval. Check enrollment constraints.',
+//         //       });
+
+//         //       return EMPTY;
+//         //     }),
+//         //   ),
+//         // ),
+//       ),
+//     ),
+//   })),
+// );
+
 import { computed, inject } from '@angular/core';
 import { signalStore, withComputed, withMethods, patchState, withState } from '@ngrx/signals';
 
@@ -5,24 +122,31 @@ import { withEntities, setAllEntities, updateEntity } from '@ngrx/signals/entiti
 
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 
-import { pipe, concatMap, tap, catchError, EMPTY } from 'rxjs';
+import { pipe, concatMap, switchMap, tap, catchError, EMPTY } from 'rxjs';
 
 import { EnrollmentService } from '../services/enrollment';
+import { LiveSyncService } from '../services/live-sync';
 import { Enrollment } from '../models/enrollment.model';
 
 export const EnrollmentStore = signalStore(
   { providedIn: 'root' },
 
+  // ---------------------------------------------------------
   // UI State
+  // ---------------------------------------------------------
   withState({
     isLoading: false,
     error: null as string | null,
   }),
 
+  // ---------------------------------------------------------
   // Entity State
+  // ---------------------------------------------------------
   withEntities<Enrollment>(),
 
+  // ---------------------------------------------------------
   // Computed Signals
+  // ---------------------------------------------------------
   withComputed((store) => ({
     pendingCount: computed(() => store.entities().filter((e) => e.status === 'Pending').length),
 
@@ -31,9 +155,13 @@ export const EnrollmentStore = signalStore(
     rejectedCount: computed(() => store.entities().filter((e) => e.status === 'Rejected').length),
   })),
 
+  // ---------------------------------------------------------
   // Store Methods
-  withMethods((store, api = inject(EnrollmentService)) => ({
+  // ---------------------------------------------------------
+  withMethods((store, api = inject(EnrollmentService), sync = inject(LiveSyncService)) => ({
+    // =====================================================
     // Load all enrollments
+    // =====================================================
     loadEnrollments: rxMethod<void>(
       pipe(
         tap(() =>
@@ -45,11 +173,6 @@ export const EnrollmentStore = signalStore(
 
         concatMap(() =>
           api.getAll().pipe(
-            // tap((rows) =>
-            //   patchState(store, setAllEntities(rows), {
-            //     isLoading: false,
-            //   }),
-            // ),
             tap((rows) => {
               const fixedRows = rows.map((r) => ({
                 ...r,
@@ -64,7 +187,7 @@ export const EnrollmentStore = signalStore(
             catchError((err) => {
               patchState(store, {
                 isLoading: false,
-                error: err.message,
+                error: err.message || 'Failed to load enrollments.',
               });
 
               return EMPTY;
@@ -74,10 +197,14 @@ export const EnrollmentStore = signalStore(
       ),
     ),
 
-    // Approve enrollment (Optimistic Update)
+    // =====================================================
+    // Approve enrollment - Optimistic Update
+    // =====================================================
     approveEnrollment: rxMethod<string>(
       pipe(
         tap((id) => {
+          // Immediately update the UI before
+          // the server responds.
           patchState(
             store,
             updateEntity({
@@ -89,27 +216,55 @@ export const EnrollmentStore = signalStore(
           );
         }),
 
-        // concatMap((id) =>
-        //   api.approve(id).pipe(
-        //     catchError(() => {
-        //       patchState(
-        //         store,
-        //         updateEntity({
-        //           id,
-        //           changes: {
-        //             status: 'Pending',
-        //           },
-        //         }),
-        //       );
+        concatMap((id) =>
+          api.approve(id).pipe(
+            catchError(() => {
+              // If the server rejects the approval,
+              // restore the previous status.
+              patchState(
+                store,
+                updateEntity({
+                  id,
+                  changes: {
+                    status: 'Pending',
+                  },
+                }),
+              );
 
-        //       patchState(store, {
-        //         error: 'Server rejected the approval. Check enrollment constraints.',
-        //       });
+              patchState(store, {
+                error: 'Server rejected the approval. Check enrollment constraints.',
+              });
 
-        //       return EMPTY;
-        //     }),
-        //   ),
-        // ),
+              return EMPTY;
+            }),
+          ),
+        ),
+      ),
+    ),
+
+    // =====================================================
+    // SignalR Live Updates
+    // =====================================================
+    listenForLiveUpdates: rxMethod<void>(
+      pipe(
+        // Start the SignalR connection.
+        tap(() => sync.connect()),
+
+        // Listen continuously for events from SignalR.
+        switchMap(() => sync.events$),
+
+        // Update the matching enrollment in the store.
+        tap((event) => {
+          patchState(
+            store,
+            updateEntity({
+              id: event.id,
+              changes: {
+                status: event.status,
+              },
+            }),
+          );
+        }),
       ),
     ),
   })),

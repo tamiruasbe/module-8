@@ -14,10 +14,28 @@
 // export class App {
 //   protected readonly title = signal('tms-client');
 // }
-import { Component, signal } from '@angular/core';
+// import { Component, signal } from '@angular/core';
+// import { RouterOutlet, RouterModule } from '@angular/router';
+// import { MatToolbarModule } from '@angular/material/toolbar';
+// import { MatButtonModule } from '@angular/material/button';
+
+// @Component({
+//   selector: 'app-root',
+//   standalone: true,
+//   imports: [RouterOutlet, RouterModule, MatToolbarModule, MatButtonModule],
+//   templateUrl: './app.html',
+//   styleUrls: ['./app.scss'],
+// })
+// export class App {
+//   protected readonly title = signal('tms-client');
+// }
+
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { RouterOutlet, RouterModule } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+
+import { EnrollmentStore } from './store/enrollment.store';
 
 @Component({
   selector: 'app-root',
@@ -26,6 +44,13 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './app.html',
   styleUrls: ['./app.scss'],
 })
-export class App {
+export class App implements OnInit {
   protected readonly title = signal('tms-client');
+
+  private store = inject(EnrollmentStore);
+
+  ngOnInit(): void {
+    this.store.loadEnrollments();
+    this.store.listenForLiveUpdates();
+  }
 }

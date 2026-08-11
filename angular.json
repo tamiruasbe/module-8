@@ -57,8 +57,14 @@
           },
           "defaultConfiguration": "production"
         },
+
         "serve": {
           "builder": "@angular/build:dev-server",
+
+          "options": {
+            "proxyConfig": "proxy.conf.json"
+          },
+
           "configurations": {
             "production": {
               "buildTarget": "tms-client:build:production"
@@ -67,8 +73,10 @@
               "buildTarget": "tms-client:build:development"
             }
           },
+
           "defaultConfiguration": "development"
         },
+
         "test": {
           "builder": "@angular/build:unit-test"
         }
