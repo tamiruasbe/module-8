@@ -32,9 +32,9 @@ export class GradeSubmissionComponent {
   private fb = inject(FormBuilder);
 
   gradeForm = this.fb.group({
-    studentId: [101, [Validators.required, Validators.min(1)]],
+    studentId: [50, [Validators.required, Validators.min(1)]],
 
-    courseId: [302, [Validators.required, Validators.min(1)]],
+    courseId: [50, [Validators.required, Validators.min(1)]],
 
     score: [88, [Validators.required, Validators.min(0), Validators.max(100)]],
   });
