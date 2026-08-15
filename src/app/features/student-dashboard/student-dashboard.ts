@@ -4,6 +4,8 @@ import { Course } from '../../models/course.model';
 import { RouterLink } from '@angular/router';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { CourseService } from '../../services/course.service';
+import { EnrollmentService } from '../../services/enrollment';
+import { CourseStore } from '../../store/course.store';
 // The @Component decorator tells Angular: "This class is a visual component."
 // It is metadata it describes how this class connects to the HTML template.
 
@@ -17,6 +19,8 @@ import { CourseService } from '../../services/course.service';
 })
 export class StudentDashboard {
   private api = inject(CourseService);
+  private enrollmentApi = inject(EnrollmentService);
+  private courseStore = inject(CourseStore);
   // signal('Liya Kebede') creates a reactive variable. Angular watchesit.
   // When its value changes, Angular automatically updates the part ofthe screen that displays it.
   studentName = signal('Liya Kebede');
@@ -41,13 +45,43 @@ export class StudentDashboard {
   //   this.selectedCourse.set(course);
   //   console.log('Enrollment requested for:', course.title);
   // }
+  // handleEnroll(course: Course) {
+  //   if (course.enrollmentCount < course.maxCapacity) {
+  //     course.enrollmentCount++;
+
+  //     this.selectedCourse.set(course);
+
+  //     console.log('Enrollment requested for:', course.title);
+  //   }
+  // }
+
+  // handleEnroll(course: Course) {
+  //   this.enrollmentApi.enroll(1, course.code).subscribe({
+  //     next: (result) => {
+  //       console.log('Enrollment successful:', result);
+
+  //       this.coursesResource.reload();
+  //     },
+  //     error: (err) => {
+  //       console.error('Enrollment failed:', err);
+  //     },
+  //   });
+  // }
+
+  private testStudentId = 1;
+
   handleEnroll(course: Course) {
-    if (course.enrollmentCount < course.maxCapacity) {
-      course.enrollmentCount++;
+    const studentId = this.testStudentId++;
 
-      this.selectedCourse.set(course);
+    this.enrollmentApi.enroll(studentId, course.code).subscribe({
+      next: (result) => {
+        console.log(`Student ${studentId} enrolled in ${course.code}`, result);
 
-      console.log('Enrollment requested for:', course.title);
-    }
+        this.coursesResource.reload();
+      },
+      error: (err) => {
+        console.error(`Student ${studentId} enrollment failed:`, err);
+      },
+    });
   }
 }

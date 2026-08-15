@@ -37,6 +37,10 @@ export const routes: Routes = [
         (m) => m.GradeSubmissionComponent,
       ),
   },
+  {
+    path: 'login',
+    loadComponent: () => import('./features/login/login').then((m) => m.Login),
+  },
 
   {
     path: '',

@@ -12,4 +12,11 @@ export class EnrollmentService {
   approve(id: string): Observable<void> {
     return this.http.post<void>(`${this.baseUrl}/${id}/approve`, {});
   }
+
+  enroll(studentId: number, courseCode: string) {
+    return this.http.post(this.baseUrl, {
+      studentId,
+      courseCode,
+    });
+  }
 }

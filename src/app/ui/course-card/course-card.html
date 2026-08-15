@@ -21,4 +21,10 @@ enrollments'
   >
     Enroll
   </button>
+  <button type="button" (click)="deleteClicked.emit(course())">Delete</button>
+
+  <!-- Temporary button for Module 10 lab testing -->
+  @if (course().enrollmentCount >= course().maxCapacity) {
+    <button (click)="enrollClicked.emit(course())">Test Full-Course Error</button>
+  }
 </div>

@@ -39,5 +39,6 @@ export class EnrollmentList {
     });
 
     this.store.loadEnrollments();
+    this.store.listenForLiveUpdates();
   }
 }

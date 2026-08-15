@@ -48,6 +48,10 @@ export class LiveSyncService {
     this.connection.on(
       'ReceiveEnrollmentStatusUpdated',
       (enrollmentId: string, status: 'Pending' | 'Approved' | 'Rejected') => {
+        console.log('SignalR event received:', {
+          enrollmentId,
+          status,
+        });
         this.eventsSubject.next({
           id: enrollmentId,
           status,

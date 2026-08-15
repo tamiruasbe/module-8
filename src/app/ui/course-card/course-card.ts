@@ -12,4 +12,5 @@ import { RouterLink } from '@angular/router';
 export class CourseCard {
   course = input.required<Course>();
   enrollClicked = output<Course>();
+  deleteClicked = output<Course>();
 }
