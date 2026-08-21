@@ -1,0 +1,146 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <h1>Create Account</h1>
+    <p>Register a new TMS account</p>
+
+    <form (ngSubmit)="register()">
+      <!-- First Name -->
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+
+        <input
+          id="firstName"
+          type="text"
+          name="firstName"
+          [(ngModel)]="firstName"
+          placeholder="Enter your first name"
+          required
+        />
+      </div>
+
+      <!-- Last Name -->
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+
+        <input
+          id="lastName"
+          type="text"
+          name="lastName"
+          [(ngModel)]="lastName"
+          placeholder="Enter your last name"
+          required
+        />
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email</label>
+
+        <input
+          id="email"
+          type="email"
+          name="email"
+          [(ngModel)]="email"
+          placeholder="example@email.com"
+          required
+        />
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password</label>
+
+        <div class="password-input">
+          <input
+            id="password"
+            [type]="hidePassword() ? 'password' : 'text'"
+            name="password"
+            [(ngModel)]="password"
+            placeholder="Enter a strong password"
+            required
+          />
+
+          <button
+            type="button"
+            class="visibility-button"
+            (click)="clickPassword($event)"
+            [attr.aria-label]="hidePassword() ? 'Show password' : 'Hide password'"
+            [attr.aria-pressed]="!hidePassword()"
+          >
+            <mat-icon>
+              {{ hidePassword() ? 'visibility_off' : 'visibility' }}
+            </mat-icon>
+          </button>
+        </div>
+
+        <small>
+          Password must contain at least 12 characters, an uppercase letter, a number, and a special
+          character.
+        </small>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+
+        <div class="password-input">
+          <input
+            id="confirmPassword"
+            [type]="hideConfirmPassword() ? 'password' : 'text'"
+            name="confirmPassword"
+            [(ngModel)]="confirmPassword"
+            placeholder="Confirm your password"
+            required
+          />
+
+          <button
+            type="button"
+            class="visibility-button"
+            (click)="clickConfirmPassword($event)"
+            [attr.aria-label]="hideConfirmPassword() ? 'Show password' : 'Hide password'"
+            [attr.aria-pressed]="!hideConfirmPassword()"
+          >
+            <mat-icon>
+              {{ hideConfirmPassword() ? 'visibility_off' : 'visibility' }}
+            </mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- Role -->
+      <div class="form-group">
+        <label for="role">Role</label>
+
+        <select id="role" name="role" [(ngModel)]="role">
+          <option value="Student">Student</option>
+          <option value="Instructor">Instructor</option>
+          <option value="Admin">Admin</option>
+        </select>
+      </div>
+
+      <!-- Error -->
+      @if (errorMessage()) {
+        <div class="error-message">
+          {{ errorMessage() }}
+        </div>
+      }
+
+      <!-- Success -->
+      @if (successMessage()) {
+        <div class="success-message">
+          {{ successMessage() }}
+        </div>
+      }
+
+      <!-- Submit -->
+      <button type="submit" [disabled]="loading()">
+        {{ loading() ? 'Creating account...' : 'Register' }}
+      </button>
+    </form>
+
+    <p class="switch-page">
+      Already have an account?
+      <a routerLink="/login"> Sign In </a>
+    </p>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <h1>Sign In</h1>
+    <p>Sign in to your TMS account</p>
+
+    <form (ngSubmit)="login()">
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email</label>
+
+        <input
+          id="email"
+          type="email"
+          name="email"
+          [(ngModel)]="email"
+          placeholder="Enter your email"
+          required
+        />
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password</label>
+
+        <div class="password-input">
+          <input
+            id="password"
+            [type]="hidePassword() ? 'password' : 'text'"
+            name="password"
+            [(ngModel)]="password"
+            placeholder="Enter your password"
+            required
+          />
+
+          <button
+            type="button"
+            class="visibility-button"
+            (click)="clickPassword($event)"
+            [attr.aria-label]="hidePassword() ? 'Show password' : 'Hide password'"
+            [attr.aria-pressed]="!hidePassword()"
+          >
+            <mat-icon>
+              {{ hidePassword() ? 'visibility_off' : 'visibility' }}
+            </mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- Error -->
+      @if (errorMessage()) {
+        <p class="error-message">
+          {{ errorMessage() }}
+        </p>
+      }
+
+      <!-- Submit -->
+      <button type="submit" [disabled]="loading()">
+        {{ loading() ? 'Signing in...' : 'Sign In' }}
+      </button>
+    </form>
+
+    <p class="switch-page">
+      Don't have an account?
+      <a routerLink="/register"> Register </a>
+    </p>
+  </div>
+</div>

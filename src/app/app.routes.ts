@@ -39,12 +39,17 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    loadComponent: () => import('./features/login/login').then((m) => m.Login),
+    loadComponent: () => import('./features/auth/login/login').then((m) => m.Login),
+  },
+  {
+    path: 'register',
+    loadComponent: () => import('./features/auth/register/register').then((m) => m.Register),
   },
 
   {
     path: '',
-    redirectTo: 'dashboard',
+    // redirectTo: 'dashboard',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
 ];
