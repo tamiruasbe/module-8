@@ -93,7 +93,7 @@
               </button>
             </div>
           } -->
-          @if (auth.hasRole('Admin')) {
+          <!-- @if (auth.hasRole('Admin')) {
             <div class="course-actions">
               <button type="button" class="btn-edit" (click)="editCourse(course)">
                 Edit Course
@@ -102,6 +102,19 @@
               <button type="button" class="btn-danger" (click)="deleteCourse(course.id)">
                 Delete Course
               </button>
+            </div>
+          } -->
+          @if (auth.hasRole('Instructor') || auth.hasRole('Admin')) {
+            <div class="course-actions">
+              <button type="button" class="btn-edit" (click)="editCourse(course)">
+                Edit Course
+              </button>
+
+              @if (auth.hasRole('Admin')) {
+                <button type="button" class="btn-danger" (click)="deleteCourse(course.id)">
+                  Delete Course
+                </button>
+              }
             </div>
           }
         </article>

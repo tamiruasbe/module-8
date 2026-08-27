@@ -53,7 +53,8 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/admin-course-list/admin-course-list').then((m) => m.AdminCourseList),
 
-    canActivate: [roleGuard('Admin')],
+    // canActivate: [roleGuard('Admin')],
+    canActivate: [roleGuard('Instructor')],
   },
   {
     path: 'unauthorized',
