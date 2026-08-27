@@ -21,8 +21,11 @@ import { provideHttpClient, withInterceptors, withXsrfConfiguration } from '@ang
 
 import { routes } from './app.routes';
 
+// import { credentialsInterceptor } from './interceptors/credentials.interceptor';
+// import { errorInterceptor } from './interceptors/error.interceptor';
 import { credentialsInterceptor } from './interceptors/credentials.interceptor';
 import { errorInterceptor } from './interceptors/error.interceptor';
+import { jwtInterceptor } from './interceptors/jwt.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -37,7 +40,7 @@ export const appConfig: ApplicationConfig = {
     // HTTP client + credentials + XSRF protection
     provideHttpClient(
       // Automatically sends cookies with HTTP requests
-      withInterceptors([credentialsInterceptor, errorInterceptor]),
+      withInterceptors([credentialsInterceptor, jwtInterceptor, errorInterceptor]),
 
       // Angular XSRF configuration
       withXsrfConfiguration({

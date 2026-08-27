@@ -1,5 +1,5 @@
 // import { inject } from '@angular/core';
-// import { EMPTY, catchError } from 'rxjs';
+// import { EMPTY, catchError, tap } from 'rxjs';
 
 // import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 
@@ -11,33 +11,52 @@
 // export const CourseStore = signalStore(
 //   { providedIn: 'root' },
 
-//   // Store course entities
 //   withEntities<Course>(),
 
-//   // Store additional state required by the lab
 //   withState({
 //     error: '',
 //   }),
 
 //   withMethods((store, svc = inject(CourseService)) => ({
+//     // ==========================================
+//     // LOAD COURSES
+//     // ==========================================
+//     loadCourses() {
+//       svc
+//         .getAll()
+//         .pipe(
+//           catchError(() => {
+//             patchState(store, {
+//               error: 'Failed to load courses.',
+//             });
+
+//             return EMPTY;
+//           }),
+//         )
+//         .subscribe((courses) => {
+//           patchState(store, setAllEntities(courses));
+//         });
+//     },
+
+//     // ==========================================
+//     // OPTIMISTIC DELETE WITH ROLLBACK
+//     // ==========================================
 //     deleteCourse(id: number) {
-//       // 1. Take a snapshot BEFORE changing the UI
+//       // 1. Take snapshot BEFORE deleting
 //       const previousSnapshot = store.entities();
 
-//       // 2. Immediately remove the course from the UI
+//       // 2. Remove immediately from UI
 //       patchState(store, removeEntity(id));
 
-//       // 3. Send the delete request to the backend
+//       // 3. Send DELETE request
 //       svc
 //         .delete(id)
 //         .pipe(
-//           catchError((err) => {
-//             // 4. Backend rejected the deletion
-
-//             // Restore the previous snapshot
+//           catchError(() => {
+//             // 4. Restore previous courses
 //             patchState(store, setAllEntities(previousSnapshot));
 
-//             // Store the error message
+//             // Lab-required error message
 //             patchState(store, {
 //               error: 'Cannot delete course: active student enrollments exist.',
 //             });
@@ -50,7 +69,8 @@
 //   })),
 // );
 import { inject } from '@angular/core';
-import { EMPTY, catchError, tap } from 'rxjs';
+
+import { EMPTY, catchError } from 'rxjs';
 
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 
@@ -60,24 +80,30 @@ import { Course } from '../models/course.model';
 import { CourseService } from '../services/course.service';
 
 export const CourseStore = signalStore(
-  { providedIn: 'root' },
+  {
+    providedIn: 'root',
+  },
 
   withEntities<Course>(),
 
   withState({
+    isLoading: false,
     error: '',
   }),
 
   withMethods((store, svc = inject(CourseService)) => ({
-    // ==========================================
-    // LOAD COURSES
-    // ==========================================
-    loadCourses() {
+    loadCourses(): void {
+      patchState(store, {
+        isLoading: true,
+        error: '',
+      });
+
       svc
         .getAll()
         .pipe(
           catchError(() => {
             patchState(store, {
+              isLoading: false,
               error: 'Failed to load courses.',
             });
 
@@ -85,37 +111,58 @@ export const CourseStore = signalStore(
           }),
         )
         .subscribe((courses) => {
-          patchState(store, setAllEntities(courses));
+          patchState(store, setAllEntities(courses), {
+            isLoading: false,
+            error: '',
+          });
         });
     },
 
-    // ==========================================
-    // OPTIMISTIC DELETE WITH ROLLBACK
-    // ==========================================
-    deleteCourse(id: number) {
-      // 1. Take snapshot BEFORE deleting
+    deleteCourse(id: number): void {
       const previousSnapshot = store.entities();
 
-      // 2. Remove immediately from UI
       patchState(store, removeEntity(id));
 
-      // 3. Send DELETE request
       svc
         .delete(id)
         .pipe(
           catchError(() => {
-            // 4. Restore previous courses
             patchState(store, setAllEntities(previousSnapshot));
 
-            // Lab-required error message
             patchState(store, {
-              error: 'Cannot delete course: active student enrollments exist.',
+              error: 'Cannot delete course: ' + 'active student enrollments exist.',
             });
 
             return EMPTY;
           }),
         )
         .subscribe();
+    },
+    updateCourse(course: Course): void {
+      svc
+        .updateCourse(course.id, {
+          id: course.id,
+          code: course.code,
+          title: course.title,
+          maxCapacity: course.maxCapacity,
+        })
+        .pipe(
+          catchError(() => {
+            patchState(store, {
+              error: 'Failed to update course.',
+            });
+
+            return EMPTY;
+          }),
+        )
+        .subscribe(() => {
+          // Update the course in the local Angular store.
+          const updatedCourses = store
+            .entities()
+            .map((item) => (item.id === course.id ? course : item));
+
+          patchState(store, setAllEntities(updatedCourses));
+        });
     },
   })),
 );

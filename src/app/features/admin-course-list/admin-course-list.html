@@ -1,0 +1,111 @@
+<div class="admin-page">
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">Administration</p>
+
+      <h1>Course Management</h1>
+
+      <p class="page-description">Manage TMS courses and course ownership.</p>
+    </div>
+
+    <div class="admin-badge">Admin</div>
+  </header>
+
+  @if (store.error()) {
+    <div class="error-banner" role="alert">
+      {{ store.error() }}
+    </div>
+  }
+
+  @if (store.isLoading()) {
+    <div class="loading-message">Loading courses...</div>
+  }
+
+  @if (!store.isLoading() && store.entities().length === 0) {
+    <div class="empty-state">No courses found.</div>
+  }
+
+  @if (store.entities().length > 0) {
+    <section class="course-grid">
+      @for (course of store.entities(); track course.id) {
+        <article class="course-card">
+          <div class="course-card-header">
+            <div>
+              <span class="course-code">
+                {{ course.code }}
+              </span>
+
+              <h2>
+                {{ course.title }}
+              </h2>
+            </div>
+
+            @if (course.status) {
+              <span
+                class="course-status"
+                [class.active]="course.status.toLowerCase() === 'active'"
+                [class.inactive]="course.status.toLowerCase() !== 'active'"
+              >
+                {{ course.status }}
+              </span>
+            }
+          </div>
+
+          <div class="course-details">
+            <div class="detail-item">
+              <span class="detail-label"> Maximum capacity </span>
+
+              <span class="detail-value">
+                {{ course.maxCapacity }}
+              </span>
+            </div>
+
+            <div class="detail-item">
+              <span class="detail-label"> Enrolled students </span>
+
+              <span class="detail-value">
+                {{ course.enrollmentCount }}
+              </span>
+            </div>
+
+            <div class="detail-item">
+              <span class="detail-label"> Available places </span>
+
+              <span class="detail-value">
+                {{ course.maxCapacity - course.enrollmentCount }}
+              </span>
+            </div>
+          </div>
+
+          <div class="capacity-bar">
+            <div
+              class="capacity-progress"
+              [style.width.%]="
+                course.maxCapacity > 0 ? (course.enrollmentCount / course.maxCapacity) * 100 : 0
+              "
+            ></div>
+          </div>
+
+          <!-- @if (auth.hasRole('Admin')) {
+            <div class="course-actions">
+              <button type="button" class="btn-danger" (click)="deleteCourse(course.id)">
+                Delete Course
+              </button>
+            </div>
+          } -->
+          @if (auth.hasRole('Admin')) {
+            <div class="course-actions">
+              <button type="button" class="btn-edit" (click)="editCourse(course)">
+                Edit Course
+              </button>
+
+              <button type="button" class="btn-danger" (click)="deleteCourse(course.id)">
+                Delete Course
+              </button>
+            </div>
+          }
+        </article>
+      }
+    </section>
+  }
+</div>

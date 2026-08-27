@@ -18,6 +18,18 @@ export class CourseService {
     return this.http.get<CourseDetail>(`${this.base}/${id}`);
   }
 
+  updateCourse(
+    id: number,
+    course: {
+      id: number;
+      code: string;
+      title: string;
+      maxCapacity: number;
+    },
+  ) {
+    return this.http.put<void>(`${environment.apiUrl}/courses/${id}`, course);
+  }
+
   delete(id: number) {
     return this.http.delete<void>(`${this.base}/${id}`);
   }
