@@ -1,0 +1,259 @@
+/* ============================================================
+   COURSE CARD
+   ============================================================ */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  min-height: 220px;
+  padding: 1.5rem;
+
+  border: 1px solid #1e293b;
+  border-radius: 1rem;
+
+  background: #0f172a;
+  color: #e2e8f0;
+
+  box-shadow: 0 10px 25px rgb(0 0 0 / 20%);
+
+  transition:
+    transform 200ms ease,
+    border-color 200ms ease,
+    background 200ms ease,
+    box-shadow 200ms ease;
+}
+
+/* ============================================================
+   CARD HOVER
+   ============================================================ */
+
+.card:hover {
+  border-color: #38bdf8;
+  background: #111c30;
+
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 14px 30px rgb(0 0 0 / 30%),
+    0 0 0 1px rgb(56 189 248 / 10%);
+}
+
+/* ============================================================
+   COURSE TITLE
+   ============================================================ */
+
+.card h3 {
+  margin: 0 0 0.85rem;
+
+  color: #ffffff;
+
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.35;
+
+  letter-spacing: -0.01em;
+}
+
+/* ============================================================
+   COURSE TITLE LINK
+   ============================================================ */
+
+.card h3 a {
+  color: #ffffff;
+
+  text-decoration: none;
+
+  transition:
+    color 200ms ease,
+    text-shadow 200ms ease;
+}
+
+/* Make the course name sky blue when hovered */
+
+.card h3 a:hover {
+  color: #38bdf8;
+
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+
+  text-shadow: 0 0 12px rgb(56 189 248 / 20%);
+}
+
+/* ============================================================
+   COURSE CODE
+   ============================================================ */
+
+.card h3 {
+  display: block;
+}
+
+/* Code appears after the course name */
+.card h3 {
+  color: #ffffff;
+}
+
+/*
+   The text outside the <a> is the course code.
+   Since the HTML is:
+
+   <h3>
+      <a>Course Name</a>
+      (CODE)
+   </h3>
+
+   keep it slightly softer than the title.
+*/
+
+.card h3 a + * {
+  color: #38bdf8;
+}
+
+/* ============================================================
+   ENROLLMENT INFORMATION
+   ============================================================ */
+
+.card p {
+  margin: 0 0 1rem;
+
+  color: #cbd5e1;
+
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* ============================================================
+   STATUS BADGE
+   ============================================================ */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+
+  width: fit-content;
+
+  margin-bottom: 1.25rem;
+  padding: 0.35rem 0.7rem;
+
+  border: 1px solid rgb(34 197 94 / 25%);
+  border-radius: 999px;
+
+  background: rgb(34 197 94 / 10%);
+  color: #4ade80;
+
+  font-size: 0.75rem;
+  font-weight: 800;
+
+  line-height: 1;
+}
+
+/* Small green status dot */
+
+.badge::before {
+  width: 6px;
+  height: 6px;
+
+  margin-right: 0.45rem;
+
+  border-radius: 50%;
+
+  background: #4ade80;
+
+  content: '';
+}
+
+/* ============================================================
+   CLOSED / FULL STATUS
+   ============================================================ */
+
+.badge.closed {
+  border-color: rgb(248 113 113 / 25%);
+  background: rgb(248 113 113 / 10%);
+  color: #f87171;
+}
+
+.badge.closed::before {
+  background: #f87171;
+}
+
+/* ============================================================
+   ENROLL BUTTON
+   ============================================================ */
+
+.card button {
+  width: 100%;
+
+  margin-top: auto;
+  padding: 0.8rem 1rem;
+
+  border: 1px solid #38bdf8;
+  border-radius: 0.55rem;
+
+  background: #38bdf8;
+  color: #082f49;
+
+  font-size: 0.85rem;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition:
+    background 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease,
+    box-shadow 200ms ease,
+    transform 150ms ease;
+}
+
+/* Button hover */
+
+.card button:hover:not(:disabled) {
+  border-color: #0ea5e9;
+  background: #0ea5e9;
+  color: #ffffff;
+
+  box-shadow: 0 6px 18px rgb(56 189 248 / 25%);
+}
+
+/* Button active */
+
+.card button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+/* Disabled button */
+
+.card button:disabled {
+  border-color: #334155;
+  background: #1e293b;
+  color: #64748b;
+
+  cursor: not-allowed;
+
+  opacity: 0.7;
+  box-shadow: none;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 640px) {
+  .card {
+    min-height: auto;
+    padding: 1.25rem;
+  }
+
+  .card h3 {
+    font-size: 1.2rem;
+  }
+
+  .card p {
+    font-size: 0.85rem;
+  }
+
+  .card button {
+    padding: 0.85rem 1rem;
+  }
+}

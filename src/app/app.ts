@@ -1,47 +1,24 @@
-// import { Component, signal } from '@angular/core';
-// import { RouterOutlet } from '@angular/router';
-// // import { DashboardSummary } from './features/dashboard-summary/dashboard-summary';
-// import { EnrollmentList } from './features/enrollment-list/enrollment-list';
-// import { DashboardSummary } from './features/dashboard-summary/dashboard-summary';
-
-// @Component({
-//   selector: 'app-root',
-//   standalone: true,
-//   imports: [RouterOutlet],
-//   templateUrl: './app.html',
-//   styleUrl: './app.scss',
-// })
-// export class App {
-//   protected readonly title = signal('tms-client');
-// }
-// import { Component, signal } from '@angular/core';
-// import { RouterOutlet, RouterModule } from '@angular/router';
-// import { MatToolbarModule } from '@angular/material/toolbar';
-// import { MatButtonModule } from '@angular/material/button';
-
-// @Component({
-//   selector: 'app-root',
-//   standalone: true,
-//   imports: [RouterOutlet, RouterModule, MatToolbarModule, MatButtonModule],
-//   templateUrl: './app.html',
-//   styleUrls: ['./app.scss'],
-// })
-// export class App {
-//   protected readonly title = signal('tms-client');
-// }
-
 import { Component, OnInit, inject, signal } from '@angular/core';
+
 import { RouterOutlet, RouterModule } from '@angular/router';
+
 import { MatToolbarModule } from '@angular/material/toolbar';
+
 import { MatButtonModule } from '@angular/material/button';
 
 import { EnrollmentStore } from './store/enrollment.store';
 
+import { AuthService } from './services/auth.service';
+
 @Component({
   selector: 'app-root',
+
   standalone: true,
+
   imports: [RouterOutlet, RouterModule, MatToolbarModule, MatButtonModule],
+
   templateUrl: './app.html',
+
   styleUrls: ['./app.scss'],
 })
 export class App implements OnInit {
@@ -49,8 +26,20 @@ export class App implements OnInit {
 
   private store = inject(EnrollmentStore);
 
+  readonly auth = inject(AuthService);
+
   ngOnInit(): void {
-    this.store.loadEnrollments();
-    this.store.listenForLiveUpdates();
+    // Only load enrollment data when needed
+    if (this.auth.isLoggedIn()) {
+      this.store.loadEnrollments();
+      this.store.listenForLiveUpdates();
+    }
+  }
+
+  logout(): void {
+    this.auth.logout();
+
+    // Navigate to login
+    window.location.href = '/login';
   }
 }

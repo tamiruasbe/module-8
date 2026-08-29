@@ -1,0 +1,206 @@
+.course-create-page {
+  min-height: 100vh;
+  padding: 2rem;
+  background: #020617;
+  color: #e2e8f0;
+}
+
+.create-header {
+  max-width: 760px;
+  margin: 0 auto 2rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.5rem;
+  color: #38bdf8;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.create-header h1 {
+  margin: 0;
+  color: #f8fafc;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.page-description {
+  margin: 0.75rem 0 0;
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+.create-card {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 2rem;
+  border: 1px solid #1e293b;
+  border-radius: 1rem;
+  background: #0f172a;
+  box-shadow: 0 12px 30px rgb(0 0 0 / 25%);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.4rem;
+}
+
+.form-group label {
+  margin-bottom: 0.5rem;
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.form-group input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid #334155;
+  border-radius: 0.55rem;
+  outline: none;
+  background: #020617;
+  color: #f8fafc;
+  font-size: 0.95rem;
+  transition:
+    border-color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.form-group input::placeholder {
+  color: #64748b;
+}
+
+.form-group input:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px rgb(56 189 248 / 10%);
+}
+
+.form-hint {
+  margin-top: 0.4rem;
+  color: #64748b;
+  font-size: 0.78rem;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #1e293b;
+}
+
+.btn-cancel,
+.btn-save {
+  padding: 0.7rem 1.15rem;
+  border-radius: 0.55rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 200ms ease,
+    border-color 200ms ease,
+    transform 150ms ease,
+    box-shadow 200ms ease;
+}
+
+/* Cancel */
+.btn-cancel {
+  border: 1px solid #334155;
+  background: #1e293b;
+  color: #cbd5e1;
+}
+
+.btn-cancel:hover {
+  background: #334155;
+  border-color: #475569;
+}
+
+/* Create Course - Sky Blue */
+.btn-save {
+  border: 1px solid #38bdf8;
+  background: #38bdf8;
+  color: #082f49;
+  box-shadow: 0 4px 12px rgb(56 189 248 / 15%);
+}
+
+.btn-save:hover {
+  background: #0ea5e9;
+  border-color: #0ea5e9;
+  color: #ffffff;
+  box-shadow: 0 6px 16px rgb(56 189 248 / 25%);
+}
+
+.btn-cancel:active,
+.btn-save:active {
+  transform: translateY(1px);
+}
+
+.btn-cancel:disabled,
+.btn-save:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.error-message {
+  max-width: 760px;
+  margin: 0 auto 1rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid #991b1b;
+  border-radius: 0.7rem;
+  background: #450a0a;
+  color: #fecaca;
+  font-size: 0.85rem;
+}
+
+.success-message {
+  max-width: 760px;
+  margin: 1rem auto 0;
+  padding: 0.9rem 1rem;
+  border: 1px solid #047857;
+  border-radius: 0.7rem;
+  background: #064e3b;
+  color: #a7f3d0;
+  font-size: 0.85rem;
+}
+
+.loading-message {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 2rem;
+  border: 1px dashed #334155;
+  border-radius: 0.75rem;
+  color: #94a3b8;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .course-create-page {
+    padding: 1rem;
+  }
+
+  .create-card {
+    padding: 1.25rem;
+  }
+
+  .create-header h1 {
+    font-size: 1.6rem;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .btn-cancel,
+  .btn-save {
+    width: 100%;
+  }
+}

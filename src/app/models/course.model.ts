@@ -4,7 +4,15 @@ export interface Course {
   title: string;
   maxCapacity: number;
   enrollmentCount: number;
+  instructorId?: string | null;
   status?: string;
+}
+export interface CourseEditModel {
+  id: number;
+  code: string;
+  title: string;
+  maxCapacity: number;
+  enrollmentCount: number;
 }
 export interface PagedResponse<T> {
   items: T[];

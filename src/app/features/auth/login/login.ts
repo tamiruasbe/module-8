@@ -51,7 +51,14 @@ export class Login {
         password: this.password,
       });
 
-      this.router.navigate(['/dashboard']);
+      // this.router.navigate(['/dashboard']);
+      if (this.authService.hasRole('Admin')) {
+        await this.router.navigate(['/admin/courses']);
+      } else if (this.authService.hasRole('Instructor')) {
+        await this.router.navigate(['/instructor-dashboard']);
+      } else {
+        await this.router.navigate(['/student-dashboard']);
+      }
     } catch (error: any) {
       this.errorMessage.set(
         error?.error?.detail || 'Login failed. Please check your email and password.',

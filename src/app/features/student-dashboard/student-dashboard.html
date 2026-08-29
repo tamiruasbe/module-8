@@ -1,29 +1,76 @@
-<div class="dashboard">
-  <h1>Welcome, {{ studentName() }}</h1>
+<div class="student-dashboard">
+  <section class="dashboard-header">
+    <div>
+      <p class="eyebrow">STUDENT PORTAL</p>
 
-  <p>Credits Earned: {{ earnedCredits() }}</p>
+      <h1>Welcome, {{ studentName() }}</h1>
 
-  <p>Graduation Status: {{ graduationStatus() }}</p>
+      <p class="subtitle">Manage your courses and track your academic progress.</p>
+    </div>
+  </section>
 
-  <button (click)="registerForClass()">Register for a Class (+3 credits)</button>
+  <section class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">🎓</div>
+
+      <div>
+        <p class="stat-label">Credits Earned</p>
+        <h2>{{ earnedCredits() }}</h2>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">📚</div>
+
+      <div>
+        <p class="stat-label">Graduation Status</p>
+        <h2 class="status">
+          {{ graduationStatus() }}
+        </h2>
+      </div>
+    </div>
+
+    <div class="stat-card action-card">
+      <div>
+        <p class="stat-label">Academic Progress</p>
+        <p class="action-description">
+          Keep registering for classes to reach your graduation goal.
+        </p>
+      </div>
+
+      <button type="button" class="register-button" (click)="registerForClass()">
+        Register for a Class
+        <span>+3 credits</span>
+      </button>
+    </div>
+  </section>
+
+  <section class="catalog-section">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">ACADEMICS</p>
+        <h2>Course Catalog</h2>
+        <p>Browse available courses and register for your classes.</p>
+      </div>
+    </div>
+
+    @if (courseStore.error()) {
+      <div class="error" role="alert">
+        <strong>Unable to load courses.</strong>
+        <span>{{ courseStore.error() }}</span>
+      </div>
+    }
+
+    <div class="grid">
+      @for (course of courseStore.entities(); track course.id) {
+        <tms-course-card [course]="course" (enrollClicked)="handleEnroll($event)" />
+      } @empty {
+        <div class="empty-state">
+          <div class="empty-icon">📚</div>
+          <h3>No courses available</h3>
+          <p>No courses are available this term.</p>
+        </div>
+      }
+    </div>
+  </section>
 </div>
-
-<h2>Course Catalog</h2>
-
-<div class="grid">
-  @for (course of courseStore.entities(); track course.id) {
-    <tms-course-card
-      [course]="course"
-      (enrollClicked)="handleEnroll($event)"
-      (deleteClicked)="handleDelete($event)"
-    />
-  } @empty {
-    <p>No courses are available this term.</p>
-  }
-</div>
-
-@if (courseStore.error()) {
-  <div class="error">
-    {{ courseStore.error() }}
-  </div>
-}

@@ -1,0 +1,59 @@
+<div class="course-create-page">
+  <div class="create-header">
+    <div>
+      <p class="eyebrow">ADMINISTRATION</p>
+
+      <h1>Add Course</h1>
+
+      <p class="page-description">Create a new course for the TMS.</p>
+    </div>
+  </div>
+
+  @if (errorMessage()) {
+    <div class="error-message" role="alert">
+      {{ errorMessage() }}
+    </div>
+  }
+
+  @if (successMessage()) {
+    <div class="success-message" role="status">
+      {{ successMessage() }}
+    </div>
+  }
+
+  <div class="create-card">
+    <div class="form-group">
+      <label for="code">Course Code</label>
+
+      <input id="code" type="text" [(ngModel)]="code" placeholder="Example: CSE-301" />
+
+      <small class="form-hint">Format: XXX-000</small>
+    </div>
+
+    <div class="form-group">
+      <label for="title">Course Title</label>
+
+      <input id="title" type="text" [(ngModel)]="title" placeholder="Enter course title" />
+    </div>
+
+    <div class="form-group">
+      <label for="maxCapacity">Maximum Capacity</label>
+
+      <input id="maxCapacity" type="number" [(ngModel)]="maxCapacity" min="1" />
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn-cancel" (click)="cancel()" [disabled]="saving()">
+        Cancel
+      </button>
+
+      <button type="button" class="btn-save" (click)="save()" [disabled]="saving()">
+        @if (saving()) {
+          Creating...
+        } @else {
+          Create Course
+        }
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,343 @@
+/* ============================================================
+   STUDENT DASHBOARD
+   ============================================================ */
+
+.student-dashboard {
+  min-height: 100vh;
+  padding: 2rem;
+  background: #020617;
+  color: #e2e8f0;
+}
+
+/* ============================================================
+   DASHBOARD HEADER
+   ============================================================ */
+
+.dashboard-header {
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.5rem;
+  color: #38bdf8;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.dashboard-header h1 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 2.1rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.subtitle {
+  margin: 0.65rem 0 0;
+  color: #94a3b8;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* ============================================================
+   STATISTICS
+   ============================================================ */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 0 auto 3rem;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-height: 110px;
+  padding: 1.25rem;
+  border: 1px solid #1e293b;
+  border-radius: 0.9rem;
+  background: #0f172a;
+  box-shadow: 0 10px 25px rgb(0 0 0 / 20%);
+  transition:
+    border-color 200ms ease,
+    transform 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.stat-card:hover {
+  border-color: #334155;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgb(0 0 0 / 28%);
+}
+
+/* ============================================================
+   STAT ICON
+   ============================================================ */
+
+.stat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+  border: 1px solid rgb(56 189 248 / 25%);
+  border-radius: 0.7rem;
+  background: rgb(56 189 248 / 10%);
+  font-size: 1.4rem;
+}
+
+/* ============================================================
+   STAT TEXT
+   ============================================================ */
+
+.stat-label {
+  margin: 0 0 0.3rem;
+  color: #94a3b8;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.stat-card h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.45rem;
+  font-weight: 800;
+}
+
+.stat-card h2.status {
+  color: #38bdf8;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+/* ============================================================
+   ACADEMIC PROGRESS CARD
+   ============================================================ */
+
+.action-card {
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.action-description {
+  max-width: 260px;
+  margin: 0;
+  color: #64748b;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+/* ============================================================
+   REGISTER BUTTON
+   ============================================================ */
+
+.register-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 155px;
+  padding: 0.75rem 1rem;
+  border: 1px solid #38bdf8;
+  border-radius: 0.55rem;
+  background: #38bdf8;
+  color: #082f49;
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1.2;
+  cursor: pointer;
+  transition:
+    background 200ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease,
+    transform 150ms ease;
+}
+
+.register-button span {
+  margin-top: 0.2rem;
+  color: #0c4a6e;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.register-button:hover {
+  border-color: #0ea5e9;
+  background: #0ea5e9;
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgb(56 189 248 / 25%);
+}
+
+.register-button:hover span {
+  color: #e0f2fe;
+}
+
+.register-button:active {
+  transform: translateY(1px);
+}
+
+/* ============================================================
+   COURSE CATALOG
+   ============================================================ */
+
+.catalog-section {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-header {
+  margin-bottom: 1.5rem;
+}
+
+.section-header h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.55rem;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.section-header p:last-child {
+  margin: 0.5rem 0 0;
+  color: #94a3b8;
+  font-size: 0.85rem;
+}
+
+/* ============================================================
+   COURSE GRID
+   ============================================================ */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+/*
+   The course title lives inside <tms-course-card>.
+   Its own SCSS must style .course-title.
+*/
+
+tms-course-card {
+  display: block;
+  min-width: 0;
+}
+
+/* ============================================================
+   ERROR MESSAGE
+   ============================================================ */
+
+.error {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  max-width: 1200px;
+  margin: 0 auto 1.5rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid #991b1b;
+  border-radius: 0.7rem;
+  background: #450a0a;
+  color: #fecaca;
+  font-size: 0.85rem;
+}
+
+.error strong {
+  color: #fca5a5;
+}
+
+/* ============================================================
+   EMPTY STATE
+   ============================================================ */
+
+.empty-state {
+  grid-column: 1 / -1;
+  padding: 3rem 1.5rem;
+  border: 1px dashed #334155;
+  border-radius: 0.9rem;
+  background: #0f172a;
+  text-align: center;
+}
+
+.empty-icon {
+  margin-bottom: 0.75rem;
+  font-size: 2rem;
+}
+
+.empty-state h3 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.empty-state p {
+  margin: 0.5rem 0 0;
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+/* ============================================================
+   TABLET
+   ============================================================ */
+
+@media (max-width: 1000px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .action-card {
+    grid-column: 1 / -1;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 640px) {
+  .student-dashboard {
+    padding: 1rem;
+  }
+
+  .dashboard-header h1 {
+    font-size: 1.65rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+    margin-bottom: 2.25rem;
+  }
+
+  .action-card {
+    grid-column: auto;
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .action-description {
+    max-width: none;
+  }
+
+  .register-button {
+    width: 100%;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-header h2 {
+    font-size: 1.35rem;
+  }
+}

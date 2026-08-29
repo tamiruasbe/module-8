@@ -1,0 +1,117 @@
+.course-edit-page {
+  min-height: calc(100vh - 64px);
+  padding: 40px;
+  background: #070b1a;
+  color: white;
+}
+
+.edit-header {
+  max-width: 800px;
+  margin: 0 auto 30px;
+}
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #42b8ff;
+}
+
+h1 {
+  margin: 5px 0;
+  font-size: 32px;
+}
+
+.edit-header p {
+  color: #aeb7cc;
+}
+
+.edit-card {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 30px;
+  background: #11182b;
+  border: 1px solid #26324d;
+  border-radius: 14px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 22px;
+}
+
+.form-group label {
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.form-group input {
+  padding: 13px 15px;
+  border-radius: 8px;
+  border: 1px solid #34415e;
+  background: #0b1120;
+  color: white;
+  font-size: 15px;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #42b8ff;
+}
+
+.form-group small {
+  margin-top: 6px;
+  color: #8994ad;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.btn-cancel,
+.btn-save {
+  padding: 11px 22px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-cancel {
+  background: #26324d;
+  color: white;
+}
+
+.btn-save {
+  background: #1976d2;
+  color: white;
+}
+
+.btn-cancel:disabled,
+.btn-save:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error-message {
+  max-width: 800px;
+  margin: 0 auto 20px;
+  padding: 14px;
+  background: #4a0d0d;
+  border: 1px solid #a83232;
+  border-radius: 8px;
+  color: #ffb0b0;
+}
+
+.success-message {
+  margin-top: 20px;
+  padding: 14px;
+  background: #0d3b25;
+  border: 1px solid #238653;
+  border-radius: 8px;
+  color: #9affc8;
+}

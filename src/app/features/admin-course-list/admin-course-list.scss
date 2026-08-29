@@ -1,3 +1,7 @@
+/* =========================================================
+   ADMIN COURSE PAGE
+   ========================================================= */
+
 .admin-page {
   min-height: 100vh;
   padding: 2rem;
@@ -5,105 +9,245 @@
   color: #e2e8f0;
 }
 
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
 .page-header {
+  position: relative;
+
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+
   gap: 1rem;
   margin-bottom: 2rem;
 }
 
+/* Left side title */
+
 .eyebrow {
   margin: 0 0 0.5rem;
+
   color: #38bdf8;
+
   font-size: 0.75rem;
   font-weight: 700;
+
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 h1 {
   margin: 0;
+
   color: #f8fafc;
+
   font-size: 2rem;
   font-weight: 800;
 }
 
 .page-description {
   margin: 0.75rem 0 0;
+
   color: #94a3b8;
+
+  font-size: 0.95rem;
 }
+
+/* =========================================================
+   ADD COURSE BUTTON
+   CENTER OF HEADER
+   ========================================================= */
+
+.btn-add {
+  position: absolute;
+
+  top: 0;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  padding: 0.7rem 1.25rem;
+
+  border: none;
+  border-radius: 0.6rem;
+
+  background: #16a34a;
+  color: #ffffff;
+
+  cursor: pointer;
+
+  font-size: 0.9rem;
+  font-weight: 700;
+
+  transition:
+    background 200ms ease,
+    box-shadow 200ms ease,
+    transform 150ms ease;
+}
+
+.btn-add:hover {
+  background: #15803d;
+
+  box-shadow: 0 6px 18px rgb(22 163 74 / 30%);
+
+  transform: translateX(-50%) translateY(-1px);
+}
+
+.btn-add:active {
+  transform: translateX(-50%) translateY(1px);
+}
+
+/* =========================================================
+   ADMIN BADGE
+   RIGHT SIDE
+   ========================================================= */
 
 .admin-badge {
   padding: 0.5rem 0.9rem;
+
   border: 1px solid #4f46e5;
   border-radius: 999px;
+
   background: #312e81;
   color: #e0e7ff;
+
   font-size: 0.8rem;
   font-weight: 700;
+
+  white-space: nowrap;
 }
+
+/* =========================================================
+   GENERAL ERROR
+   ========================================================= */
 
 .error-banner {
   margin-bottom: 1.5rem;
   padding: 1rem;
+
   border: 1px solid #991b1b;
   border-radius: 0.75rem;
+
   background: #450a0a;
   color: #fecaca;
+
+  font-size: 0.9rem;
 }
+
+/* =========================================================
+   LOADING / EMPTY
+   ========================================================= */
 
 .loading-message,
 .empty-state {
   padding: 2rem;
+
   border: 1px dashed #334155;
   border-radius: 0.75rem;
+
   color: #94a3b8;
+
   text-align: center;
 }
 
+/* =========================================================
+   COURSE GRID
+   ========================================================= */
+
 .course-grid {
   display: grid;
+
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+
   gap: 1.5rem;
 }
 
+/* =========================================================
+   COURSE CARD
+   ========================================================= */
+
 .course-card {
   overflow: hidden;
+
   border: 1px solid #1e293b;
   border-radius: 1rem;
+
   background: #0f172a;
+
   box-shadow: 0 12px 30px rgb(0 0 0 / 20%);
+
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease,
+    border-color 200ms ease;
 }
+
+.course-card:hover {
+  transform: translateY(-3px);
+
+  border-color: #334155;
+
+  box-shadow: 0 16px 35px rgb(0 0 0 / 30%);
+}
+
+/* =========================================================
+   COURSE CARD HEADER
+   ========================================================= */
 
 .course-card-header {
   display: flex;
+
   align-items: flex-start;
   justify-content: space-between;
+
   gap: 1rem;
+
   padding: 1.25rem;
+
   border-bottom: 1px solid #1e293b;
 }
 
+/* Course code */
+
 .course-code {
   color: #38bdf8;
+
   font-size: 0.8rem;
   font-weight: 700;
+
   letter-spacing: 0.08em;
 }
 
+/* Course title */
+
 .course-card h2 {
   margin: 0.5rem 0 0;
+
   color: #f8fafc;
+
   font-size: 1.2rem;
+  font-weight: 700;
+
+  line-height: 1.35;
 }
+
+/* =========================================================
+   COURSE STATUS
+   ========================================================= */
 
 .course-status {
   padding: 0.3rem 0.6rem;
+
   border-radius: 999px;
+
   font-size: 0.7rem;
   font-weight: 700;
+
   text-transform: uppercase;
+
+  white-space: nowrap;
 }
 
 .course-status.active {
@@ -116,122 +260,315 @@ h1 {
   color: #fed7aa;
 }
 
+/* =========================================================
+   COURSE DETAILS
+   ========================================================= */
+
 .course-details {
   display: grid;
+
   gap: 1rem;
+
   padding: 1.25rem;
 }
 
 .detail-item {
   display: flex;
+
   justify-content: space-between;
+  align-items: center;
+
   gap: 1rem;
 }
 
 .detail-label {
   color: #94a3b8;
+
   font-size: 0.85rem;
 }
 
 .detail-value {
   color: #f8fafc;
+
+  font-size: 0.9rem;
   font-weight: 700;
 }
 
+/* =========================================================
+   CAPACITY BAR
+   ========================================================= */
+
 .capacity-bar {
   height: 0.5rem;
+
   margin: 0 1.25rem;
+
   overflow: hidden;
+
   border-radius: 999px;
+
   background: #1e293b;
 }
 
 .capacity-progress {
   height: 100%;
+
   border-radius: inherit;
+
   background: linear-gradient(90deg, #22c55e, #eab308, #ef4444);
+
   transition: width 300ms ease;
 }
 
+/* =========================================================
+   COURSE ACTIONS
+   ========================================================= */
+
 .course-actions {
   display: flex;
+
   justify-content: flex-end;
+  align-items: center;
+
+  gap: 0.75rem;
+
   padding: 1.25rem;
 }
 
-.btn-danger {
+/* =========================================================
+   EDIT BUTTON
+   ========================================================= */
+
+.btn-edit {
   padding: 0.65rem 1rem;
+
   border: 0;
   border-radius: 0.5rem;
-  background: #dc2626;
-  color: white;
+
+  background: #2563eb;
+  color: #ffffff;
+
   cursor: pointer;
+
+  font-size: 0.85rem;
   font-weight: 700;
+
+  transition:
+    background 200ms ease,
+    transform 150ms ease,
+    box-shadow 200ms ease;
+}
+
+.btn-edit:hover {
+  background: #1d4ed8;
+
+  box-shadow: 0 5px 14px rgb(37 99 235 / 30%);
+}
+
+.btn-edit:active {
+  transform: translateY(1px);
+}
+
+/* =========================================================
+   DELETE BUTTON
+   ========================================================= */
+
+.btn-danger {
+  padding: 0.65rem 1rem;
+
+  border: 0;
+  border-radius: 0.5rem;
+
+  background: #dc2626;
+  color: #ffffff;
+
+  cursor: pointer;
+
+  font-size: 0.85rem;
+  font-weight: 700;
+
+  transition:
+    background 200ms ease,
+    transform 150ms ease,
+    box-shadow 200ms ease;
 }
 
 .btn-danger:hover {
   background: #b91c1c;
+
+  box-shadow: 0 5px 14px rgb(220 38 38 / 30%);
 }
+
+.btn-danger:active {
+  transform: translateY(1px);
+}
+
+/* =========================================================
+   DELETE ERROR
+   ========================================================= */
+
+.course-delete-error {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 0.75rem;
+
+  margin: 0 1.25rem;
+
+  padding: 0.85rem 1rem;
+
+  border: 1px solid #991b1b;
+  border-radius: 0.75rem;
+
+  background: #450a0a;
+  color: #fecaca;
+
+  font-size: 0.85rem;
+
+  line-height: 1.45;
+
+  overflow-wrap: anywhere;
+}
+
+.error-icon {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  width: 1.4rem;
+  height: 1.4rem;
+
+  border-radius: 50%;
+
+  background: #dc2626;
+  color: #ffffff;
+
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.error-text {
+  flex: 1;
+
+  min-width: 0;
+}
+
+/* =========================================================
+   DELETE SUCCESS
+   ========================================================= */
+
+.course-delete-success {
+  margin: 0 1.25rem;
+
+  padding: 0.85rem 1rem;
+
+  border: 1px solid #047857;
+  border-radius: 0.75rem;
+
+  background: #064e3b;
+  color: #a7f3d0;
+
+  font-size: 0.85rem;
+
+  line-height: 1.45;
+}
+
+/* =========================================================
+   SNACKBAR
+   ========================================================= */
+
+.course-snackbar {
+  position: fixed !important;
+
+  z-index: 9999 !important;
+
+  margin: 0 !important;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
 
 @media (max-width: 640px) {
   .admin-page {
     padding: 1rem;
   }
 
+  /* Header becomes vertical */
   .page-header {
     flex-direction: column;
+
+    align-items: stretch;
+
+    gap: 1rem;
+
+    padding-bottom: 0;
   }
 
+  /* Add button returns to normal flow */
+  .btn-add {
+    position: static;
+
+    width: 100%;
+
+    transform: none;
+  }
+
+  .btn-add:hover {
+    transform: translateY(-1px);
+  }
+
+  .btn-add:active {
+    transform: translateY(1px);
+  }
+
+  /* Admin badge */
+  .admin-badge {
+    align-self: flex-end;
+  }
+
+  /* Course header */
   .course-card-header {
     flex-direction: column;
   }
+
+  /* Course actions */
   .course-actions {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+    justify-content: stretch;
+
+    flex-direction: column;
+
     gap: 0.75rem;
-    padding: 1.25rem;
   }
 
-  .btn-edit {
-    padding: 0.65rem 1rem;
-    border: 0;
-    border-radius: 0.5rem;
-    background: #2563eb;
-    color: white;
-    cursor: pointer;
-    font-weight: 700;
-    transition:
-      background 200ms ease,
-      transform 150ms ease;
-  }
-
-  .btn-edit:hover {
-    background: #1d4ed8;
-  }
-
-  .btn-edit:active {
-    transform: translateY(1px);
-  }
-
+  .btn-edit,
   .btn-danger {
-    padding: 0.65rem 1rem;
-    border: 0;
-    border-radius: 0.5rem;
-    background: #dc2626;
-    color: white;
-    cursor: pointer;
-    font-weight: 700;
-    transition:
-      background 200ms ease,
-      transform 150ms ease;
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 400px) {
+  .admin-page {
+    padding: 0.75rem;
   }
 
-  .btn-danger:hover {
-    background: #b91c1c;
+  h1 {
+    font-size: 1.6rem;
   }
 
-  .btn-danger:active {
-    transform: translateY(1px);
+  .course-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .course-card h2 {
+    font-size: 1.05rem;
   }
 }

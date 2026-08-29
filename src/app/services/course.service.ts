@@ -1,22 +1,47 @@
-import { Service, inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+
 import { environment } from '../../environments/environment';
-import { Course, CourseDetail, PagedResponse } from '../models/course.model';
-@Service()
+
+import { Course, CourseEditModel, PagedResponse } from '../models/course.model';
+
+@Injectable({
+  providedIn: 'root',
+})
 export class CourseService {
   private http = inject(HttpClient);
+
   private readonly base = `${environment.apiUrl}/courses`;
+
+  // ============================================================
+  // GET ALL COURSES
+  // ============================================================
+
   getAll() {
     return this.http
       .get<PagedResponse<Course>>(this.base, {
-        params: { page: '1', pageSize: '50' },
+        params: {
+          page: '1',
+          pageSize: '50',
+        },
       })
       .pipe(map((response) => response.items));
   }
+
+  // ============================================================
+  // GET ONE COURSE
+  // GET /api/v1/courses/{id}
+  // ============================================================
+
   getById(id: string) {
-    return this.http.get<CourseDetail>(`${this.base}/${id}`);
+    return this.http.get<CourseEditModel>(`${this.base}/${id}`);
   }
+
+  // ============================================================
+  // UPDATE COURSE
+  // PUT /api/v1/courses/{id}
+  // ============================================================
 
   updateCourse(
     id: number,
@@ -27,8 +52,17 @@ export class CourseService {
       maxCapacity: number;
     },
   ) {
-    return this.http.put<void>(`${environment.apiUrl}/courses/${id}`, course);
+    return this.http.put<void>(`${this.base}/${id}`, course);
   }
+
+  createCourse(course: { code: string; title: string; maxCapacity: number }) {
+    return this.http.post<void>(`${this.base}`, course);
+  }
+
+  // ============================================================
+  // DELETE COURSE
+  // DELETE /api/v1/courses/{id}
+  // ============================================================
 
   delete(id: number) {
     return this.http.delete<void>(`${this.base}/${id}`);

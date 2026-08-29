@@ -1,18 +1,14 @@
-<div class="admin-page">
+<div class="instructor-page">
   <header class="page-header">
     <div>
-      <p class="eyebrow">Administration</p>
+      <p class="eyebrow">INSTRUCTOR</p>
 
-      <h1>Course Management</h1>
+      <h1>My Courses</h1>
 
-      <p class="page-description">Manage TMS courses and course ownership.</p>
+      <p class="page-description">Manage the courses assigned to you.</p>
     </div>
 
-    <!-- Add Course button -->
-    <button type="button" class="btn-add" (click)="addCourse()">+ Add Course</button>
-
-    <!-- Admin badge -->
-    <div class="admin-badge">Admin</div>
+    <div class="instructor-badge">Instructor</div>
   </header>
 
   @if (store.error()) {
@@ -90,31 +86,9 @@
             ></div>
           </div>
 
-          @if (auth.hasRole('Admin')) {
-            @if (deleteErrorCourseId() === course.id) {
-              <div class="course-delete-error" role="alert">
-                <span class="error-icon">!</span>
-
-                <span class="error-text">
-                  {{ deleteErrorMessage() }}
-                </span>
-              </div>
-            }
-
-            @if (deleteSuccessCourseId() === course.id) {
-              <div class="course-delete-success" role="status">
-                {{ deleteSuccessMessage() }}
-              </div>
-            }
-
-            <div class="course-actions">
-              <button type="button" class="btn-edit" (click)="editCourse(course.id)">Edit</button>
-
-              <button type="button" class="btn-danger" (click)="deleteCourse(course.id)">
-                Delete Course
-              </button>
-            </div>
-          }
+          <div class="course-actions">
+            <button type="button" class="btn-edit" (click)="editCourse(course.id)">Edit</button>
+          </div>
         </article>
       }
     </section>
