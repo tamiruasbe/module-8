@@ -1,76 +1,33 @@
-<!-- ========================================== -->
-<!-- NAVIGATION -->
-<!-- ========================================== -->
-
 @if (auth.isLoggedIn()) {
   <mat-toolbar color="primary" class="app-toolbar">
     <div class="nav-links">
-      <!-- ====================================== -->
-      <!-- DASHBOARD -->
-      <!-- Student + Instructor + Admin -->
-      <!-- ====================================== -->
-
       @if (auth.hasAnyRole(['Student'])) {
         <a mat-button routerLink="/student-dashboard" routerLinkActive="active-link">
           Student Dashboard
         </a>
       }
 
-      <!-- ====================================== -->
-      <!-- INSTRUCTOR DASHBOARD -->
-      <!-- Instructor + Admin -->
-      <!-- ====================================== -->
-
-      <!-- ====================================== -->
-      <!-- INSTRUCTOR DASHBOARD -->
-      <!-- Instructor + Admin -->
-      <!-- ====================================== -->
-
       @if (auth.hasAnyRole(['Instructor'])) {
         <a mat-button routerLink="/instructor-dashboard" routerLinkActive="active-link">
           Instructor Dashboard
         </a>
 
-        <!-- ====================================== -->
-        <!-- MY COURSES -->
-        <!-- Instructor + Admin -->
-        <!-- ====================================== -->
-
         <a mat-button routerLink="/instructor/courses" routerLinkActive="active-link">
           My Courses
         </a>
       }
-      <!-- ====================================== -->
-      <!-- ENROLLMENTS -->
-      <!-- Admin -->
-      <!-- ====================================== -->
 
       @if (auth.hasAnyRole(['Admin'])) {
         <a mat-button routerLink="/enrollments" routerLinkActive="active-link"> Enrollments </a>
       }
 
-      <!-- ====================================== -->
-      <!-- ENROLL FORM -->
-      <!-- Student + Admin -->
-      <!-- ====================================== -->
-
       @if (auth.hasAnyRole(['Student'])) {
         <a mat-button routerLink="/enroll" routerLinkActive="active-link"> Enroll Form </a>
       }
 
-      <!-- ====================================== -->
-      <!-- COURSE DETAIL -->
-      <!-- Student + Instructor + Admin -->
-      <!-- ====================================== -->
-
       @if (auth.hasAnyRole(['Student'])) {
         <a mat-button routerLink="/courses/101" routerLinkActive="active-link"> Course Detail </a>
       }
-
-      <!-- ====================================== -->
-      <!-- GRADE SUBMISSION -->
-      <!-- Instructor + Admin -->
-      <!-- ====================================== -->
 
       @if (auth.hasAnyRole(['Instructor'])) {
         <a mat-button routerLink="/grade-submission" routerLinkActive="active-link">
@@ -78,26 +35,13 @@
         </a>
       }
 
-      <!-- ====================================== -->
-      <!-- ADMIN -->
-      <!-- Admin only -->
-      <!-- ====================================== -->
-
       @if (auth.hasAnyRole(['Admin'])) {
         <a mat-button routerLink="/admin/courses" routerLinkActive="active-link"> Admin </a>
       }
-
-      <!-- ====================================== -->
-      <!-- LOGOUT -->
-      <!-- ====================================== -->
 
       <button mat-button type="button" (click)="logout()">LOG OUT</button>
     </div>
   </mat-toolbar>
 }
-
-<!-- ========================================== -->
-<!-- PAGE CONTENT -->
-<!-- ========================================== -->
 
 <router-outlet></router-outlet>

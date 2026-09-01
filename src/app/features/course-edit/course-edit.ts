@@ -45,10 +45,6 @@ export class CourseEdit {
     });
   }
 
-  // ============================================================
-  // LOAD COURSE
-  // ============================================================
-
   private loadCourse(id: string): void {
     const courseId = Number(id);
 
@@ -96,9 +92,6 @@ export class CourseEdit {
 
     this.router.navigate(['/dashboard']);
   }
-  // ============================================================
-  // SAVE
-  // ============================================================
 
   save(): void {
     const courseId = Number(this.id());
@@ -172,10 +165,6 @@ export class CourseEdit {
         },
       });
   }
-
-  // ============================================================
-  // CANCEL
-  // ============================================================
 
   cancel(): void {
     // this.router.navigate(['/admin/courses']);

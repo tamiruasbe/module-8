@@ -41,9 +41,6 @@ export class StudentDashboard {
     this.earnedCredits.update((c) => c + 3);
   }
 
-  // ==========================================
-  // PART 1: ENROLLMENT + ERROR INTERCEPTION
-  // ==========================================
   handleEnroll(course: Course) {
     const studentId = this.testStudentId++;
 
@@ -64,9 +61,6 @@ export class StudentDashboard {
     });
   }
 
-  // ==========================================
-  // PART 2: OPTIMISTIC DELETE + ROLLBACK
-  // ==========================================
   handleDelete(course: Course) {
     this.courseStore.deleteCourse(course.id);
   }

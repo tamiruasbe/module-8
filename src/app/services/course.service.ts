@@ -14,10 +14,6 @@ export class CourseService {
 
   private readonly base = `${environment.apiUrl}/courses`;
 
-  // ============================================================
-  // GET ALL COURSES
-  // ============================================================
-
   getAll() {
     return this.http
       .get<PagedResponse<Course>>(this.base, {
@@ -29,19 +25,9 @@ export class CourseService {
       .pipe(map((response) => response.items));
   }
 
-  // ============================================================
-  // GET ONE COURSE
-  // GET /api/v1/courses/{id}
-  // ============================================================
-
   getById(id: string) {
     return this.http.get<CourseEditModel>(`${this.base}/${id}`);
   }
-
-  // ============================================================
-  // UPDATE COURSE
-  // PUT /api/v1/courses/{id}
-  // ============================================================
 
   updateCourse(
     id: number,
@@ -58,11 +44,6 @@ export class CourseService {
   createCourse(course: { code: string; title: string; maxCapacity: number }) {
     return this.http.post<void>(`${this.base}`, course);
   }
-
-  // ============================================================
-  // DELETE COURSE
-  // DELETE /api/v1/courses/{id}
-  // ============================================================
 
   delete(id: number) {
     return this.http.delete<void>(`${this.base}/${id}`);

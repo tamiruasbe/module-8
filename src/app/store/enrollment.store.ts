@@ -14,22 +14,13 @@ import { Enrollment } from '../models/enrollment.model';
 export const EnrollmentStore = signalStore(
   { providedIn: 'root' },
 
-  // ---------------------------------------------------------
-  // UI State
-  // ---------------------------------------------------------
   withState({
     isLoading: false,
     error: null as string | null,
   }),
 
-  // ---------------------------------------------------------
-  // Entity State
-  // ---------------------------------------------------------
   withEntities<Enrollment>(),
 
-  // ---------------------------------------------------------
-  // Computed Signals
-  // ---------------------------------------------------------
   withComputed((store) => ({
     pendingCount: computed(() => store.entities().filter((e) => e.status === 'Pending').length),
 
@@ -38,16 +29,11 @@ export const EnrollmentStore = signalStore(
     rejectedCount: computed(() => store.entities().filter((e) => e.status === 'Rejected').length),
   })),
 
-  // ---------------------------------------------------------
-  // Store Methods
-  // ---------------------------------------------------------
   withMethods((store, api = inject(EnrollmentService), sync = inject(LiveSyncService)) => ({
     seed: (rows: Enrollment[]) => {
       patchState(store, setAllEntities(rows));
     },
-    // =====================================================
-    // Load all enrollments
-    // =====================================================
+
     loadEnrollments: rxMethod<void>(
       pipe(
         tap(() =>
@@ -83,9 +69,6 @@ export const EnrollmentStore = signalStore(
       ),
     ),
 
-    // =====================================================
-    // Approve enrollment - Optimistic Update
-    // =====================================================
     approveEnrollment: rxMethod<string>(
       pipe(
         tap((id) => {
@@ -128,9 +111,6 @@ export const EnrollmentStore = signalStore(
       ),
     ),
 
-    // =====================================================
-    // SignalR Live Updates
-    // =====================================================
     listenForLiveUpdates: rxMethod<void>(
       pipe(
         // Start the SignalR connection.

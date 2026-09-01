@@ -18,23 +18,11 @@ import {
   templateUrl: './enrollment-form.html',
 })
 export class EnrollmentForm {
-  // ==========================================================
-  // Dependency Injection
-  // ==========================================================
-
   // Angular injects FormBuilder so we can create the form.
   private fb = inject(FormBuilder);
 
-  // ==========================================================
-  // Signals
-  // ==========================================================
-
   // Tracks whether the enrollment has been submitted.
   submitted = signal(false);
-
-  // ==========================================================
-  // Reactive Form Model
-  // ==========================================================
 
   form = this.fb.nonNullable.group({
     // Student ID
@@ -61,19 +49,11 @@ export class EnrollmentForm {
     backupCourses: this.fb.array<FormControl<string>>([]),
   });
 
-  // ==========================================================
-  // Getter
-  // ==========================================================
-
   // Shortcut for backupCourses array
 
   get backups() {
     return this.form.controls.backupCourses;
   }
-
-  // ==========================================================
-  // Add Backup Course
-  // ==========================================================
 
   addBackup() {
     this.backups.push(
@@ -85,17 +65,9 @@ export class EnrollmentForm {
     );
   }
 
-  // ==========================================================
-  // Remove Backup Course
-  // ==========================================================
-
   removeBackup(index: number) {
     this.backups.removeAt(index);
   }
-
-  // ==========================================================
-  // Submit Form
-  // ==========================================================
 
   submit() {
     if (this.form.valid) {

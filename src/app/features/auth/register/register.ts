@@ -26,16 +26,8 @@ import { AuthService } from '../../../services/auth.service';
 export class Register {
   private authService = inject(AuthService);
 
-  // ============================================================
-  // PASSWORD VISIBILITY
-  // ============================================================
-
   hidePassword = signal(true);
   hideConfirmPassword = signal(true);
-
-  // ============================================================
-  // FORM FIELDS
-  // ============================================================
 
   firstName = '';
   lastName = '';
@@ -44,25 +36,13 @@ export class Register {
   confirmPassword = '';
   role = 'Student';
 
-  // ============================================================
-  // LOADING / MESSAGES
-  // ============================================================
-
   loading = signal(false);
   errorMessage = signal('');
   successMessage = signal('');
 
-  // ============================================================
-  // EMAIL VALIDATION
-  // ============================================================
-
   isEmailValid(): boolean {
     return this.email.trim().includes('@');
   }
-
-  // ============================================================
-  // PASSWORD VALIDATION
-  // ============================================================
 
   isPasswordValid(): boolean {
     return (
@@ -73,17 +53,9 @@ export class Register {
     );
   }
 
-  // ============================================================
-  // CONFIRM PASSWORD VALIDATION
-  // ============================================================
-
   passwordsMatch(): boolean {
     return this.confirmPassword.length > 0 && this.password === this.confirmPassword;
   }
-
-  // ============================================================
-  // PASSWORD VISIBILITY
-  // ============================================================
 
   clickPassword(event: MouseEvent): void {
     this.hidePassword.set(!this.hidePassword());
@@ -95,19 +67,11 @@ export class Register {
     event.stopPropagation();
   }
 
-  // ============================================================
-  // REGISTER
-  // ============================================================
-
   async register(): Promise<void> {
     this.loading.set(true);
 
     this.errorMessage.set('');
     this.successMessage.set('');
-
-    // ==========================================================
-    // EMAIL VALIDATION
-    // ==========================================================
 
     if (!this.isEmailValid()) {
       this.errorMessage.set('Email must contain @. Please enter a valid email address.');
@@ -115,10 +79,6 @@ export class Register {
       this.loading.set(false);
       return;
     }
-
-    // ==========================================================
-    // PASSWORD VALIDATION
-    // ==========================================================
 
     if (!this.isPasswordValid()) {
       this.errorMessage.set(
@@ -129,20 +89,12 @@ export class Register {
       return;
     }
 
-    // ==========================================================
-    // CONFIRM PASSWORD
-    // ==========================================================
-
     if (this.password !== this.confirmPassword) {
       this.errorMessage.set('Passwords do not match.');
 
       this.loading.set(false);
       return;
     }
-
-    // ==========================================================
-    // REGISTER USER
-    // ==========================================================
 
     try {
       const response = await this.authService.register({

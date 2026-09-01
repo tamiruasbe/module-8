@@ -42,44 +42,13 @@ export class AuthService {
 
   private readonly base = `${environment.apiUrl}/auth`;
 
-  // ==========================================
-  // ACCESS TOKEN
-  // ==========================================
-
-  // Access token remains in memory.
-  //
-  // We do NOT store the access token in:
-  //
-  // localStorage
-  // sessionStorage
-
   private accessToken = signal<string | null>(null);
-
-  // ==========================================
-  // REFRESH TOKEN
-  // ==========================================
-
-  // The refresh token is persisted so that
-  // authentication can be restored after a
-  // browser refresh.
 
   private refreshToken = signal<string | null>(sessionStorage.getItem('tms_refresh_token'));
 
-  // ==========================================
-  // CURRENT USER
-  // ==========================================
-
   currentUser = signal<TmsUser | null>(null);
 
-  // ==========================================
-  // AUTHENTICATION RESTORATION
-  // ==========================================
-
   private restoringSession = signal(false);
-
-  // ==========================================
-  // REGISTER
-  // ==========================================
 
   async register(request: RegisterRequest): Promise<string> {
     const response = await firstValueFrom(
@@ -88,10 +57,6 @@ export class AuthService {
 
     return response.message;
   }
-
-  // ==========================================
-  // LOGIN
-  // ==========================================
 
   async login(credentials: LoginRequest): Promise<void> {
     const response = await firstValueFrom(
@@ -102,10 +67,6 @@ export class AuthService {
 
     this.setCurrentUserFromAccessToken(response.accessToken);
   }
-
-  // ==========================================
-  // REFRESH SESSION
-  // ==========================================
 
   async restoreSession(): Promise<boolean> {
     const storedRefreshToken = this.refreshToken();
@@ -141,10 +102,6 @@ export class AuthService {
     }
   }
 
-  // ==========================================
-  // STORE TOKENS
-  // ==========================================
-
   private storeTokens(accessToken: string, refreshToken: string): void {
     this.accessToken.set(accessToken);
 
@@ -152,10 +109,6 @@ export class AuthService {
 
     sessionStorage.setItem('tms_refresh_token', refreshToken);
   }
-
-  // ==========================================
-  // CREATE USER FROM JWT
-  // ==========================================
 
   private setCurrentUserFromAccessToken(accessToken: string): void {
     const payload = JSON.parse(atob(accessToken.split('.')[1]));
@@ -186,17 +139,9 @@ export class AuthService {
     });
   }
 
-  // ==========================================
-  // GET ACCESS TOKEN
-  // ==========================================
-
   getAccessToken(): string | null {
     return this.accessToken();
   }
-
-  // ==========================================
-  // LOGOUT
-  // ==========================================
 
   logout(): void {
     this.clearAuthentication();
@@ -211,10 +156,6 @@ export class AuthService {
 
     sessionStorage.removeItem('tms_refresh_token');
   }
-
-  // ==========================================
-  // AUTHENTICATION STATUS
-  // ==========================================
 
   isLoggedIn(): boolean {
     return this.currentUser() !== null;

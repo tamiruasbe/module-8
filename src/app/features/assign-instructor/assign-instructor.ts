@@ -21,16 +21,8 @@ export class AssignInstructor implements OnInit {
   private readonly router = inject(Router);
   private readonly snackBar = inject(MatSnackBar);
 
-  // ============================================================
-  // DATA
-  // ============================================================
-
   readonly courses = signal<Course[]>([]);
   readonly instructors = signal<Instructor[]>([]);
-
-  // ============================================================
-  // STATE
-  // ============================================================
 
   readonly isLoadingCourses = signal(false);
   readonly isLoadingInstructors = signal(false);
@@ -48,10 +40,6 @@ export class AssignInstructor implements OnInit {
     this.loadCourses();
     this.loadInstructors();
   }
-
-  // ============================================================
-  // LOAD COURSES
-  // ============================================================
 
   loadCourses(): void {
     this.isLoadingCourses.set(true);
@@ -75,10 +63,6 @@ export class AssignInstructor implements OnInit {
     });
   }
 
-  // ============================================================
-  // LOAD INSTRUCTORS
-  // ============================================================
-
   loadInstructors(): void {
     this.isLoadingInstructors.set(true);
 
@@ -100,10 +84,6 @@ export class AssignInstructor implements OnInit {
     });
   }
 
-  // ============================================================
-  // SELECT INSTRUCTOR
-  // ============================================================
-
   selectInstructor(courseId: number, instructorId: string): void {
     this.selectedInstructor.update((current) => ({
       ...current,
@@ -113,10 +93,6 @@ export class AssignInstructor implements OnInit {
     this.successMessage.set('');
     this.errorMessage.set('');
   }
-
-  // ============================================================
-  // ASSIGN INSTRUCTOR
-  // ============================================================
 
   assignInstructor(course: Course): void {
     const instructorId = this.selectedInstructor()[course.id];
@@ -182,10 +158,6 @@ export class AssignInstructor implements OnInit {
     });
   }
 
-  // ============================================================
-  // REMOVE INSTRUCTOR
-  // ============================================================
-
   removeInstructor(course: Course): void {
     this.assigningCourseId.set(course.id);
 
@@ -237,10 +209,6 @@ export class AssignInstructor implements OnInit {
     });
   }
 
-  // ============================================================
-  // GET INSTRUCTOR NAME
-  // ============================================================
-
   getInstructorName(instructorId: string | null | undefined): string {
     if (!instructorId) {
       return 'Not assigned';
@@ -254,10 +222,6 @@ export class AssignInstructor implements OnInit {
 
     return `${instructor.firstName} ${instructor.lastName}`;
   }
-
-  // ============================================================
-  // BACK
-  // ============================================================
 
   backToCourses(): void {
     this.router.navigate(['/admin/courses']);

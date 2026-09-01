@@ -5,10 +5,6 @@
     <p>Register a new TMS account</p>
 
     <form (ngSubmit)="register()">
-      <!-- ======================================================
-           FIRST NAME
-           ====================================================== -->
-
       <div class="form-group">
         <label for="firstName">First Name</label>
 
@@ -21,10 +17,6 @@
           required
         />
       </div>
-
-      <!-- ======================================================
-           LAST NAME
-           ====================================================== -->
 
       <div class="form-group">
         <label for="lastName">Last Name</label>
@@ -39,10 +31,6 @@
         />
       </div>
 
-      <!-- ======================================================
-           EMAIL
-           ====================================================== -->
-
       <div class="form-group">
         <label for="email">Email</label>
 
@@ -54,17 +42,7 @@
           placeholder="example@email.com"
           required
         />
-
-        <!-- @if (email.length > 0) {
-          <small class="email-requirement" [class.valid]="isEmailValid()">
-            {{ isEmailValid() ? '✓ Email is valid.' : 'Email must contain @.' }}
-          </small>
-        } -->
       </div>
-
-      <!-- ======================================================
-           PASSWORD
-           ====================================================== -->
 
       <div class="form-group">
         <label for="password">Password</label>
@@ -92,10 +70,6 @@
           </button>
         </div>
 
-        <!-- ====================================================
-             ONE PASSWORD REQUIREMENT MESSAGE
-             ==================================================== -->
-
         <small class="password-requirement" [class.valid]="isPasswordValid()">
           {{
             isPasswordValid()
@@ -104,10 +78,6 @@
           }}
         </small>
       </div>
-
-      <!-- ======================================================
-           CONFIRM PASSWORD
-           ====================================================== -->
 
       <div class="form-group">
         <label for="confirmPassword"> Confirm Password </label>
@@ -144,10 +114,6 @@
         }
       </div>
 
-      <!-- ======================================================
-           ROLE
-           ====================================================== -->
-
       <div class="form-group">
         <label for="role">Role</label>
 
@@ -160,19 +126,11 @@
         </select>
       </div>
 
-      <!-- ======================================================
-           ERROR MESSAGE
-           ====================================================== -->
-
       @if (errorMessage()) {
         <div class="error-message" role="alert">
           {{ errorMessage() }}
         </div>
       }
-
-      <!-- ======================================================
-           SUCCESS MESSAGE
-           ====================================================== -->
 
       @if (successMessage()) {
         <div class="success-message" role="status">
@@ -180,18 +138,10 @@
         </div>
       }
 
-      <!-- ======================================================
-           REGISTER BUTTON
-           ====================================================== -->
-
       <button type="submit" [disabled]="loading()">
         {{ loading() ? 'Creating account...' : 'Register' }}
       </button>
     </form>
-
-    <!-- ========================================================
-         LOGIN LINK
-         ======================================================== -->
 
     <p class="switch-page">
       Already have an account?
