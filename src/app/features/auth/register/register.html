@@ -1,10 +1,14 @@
 <div class="auth-container">
   <div class="auth-card">
     <h1>Create Account</h1>
+
     <p>Register a new TMS account</p>
 
     <form (ngSubmit)="register()">
-      <!-- First Name -->
+      <!-- ======================================================
+           FIRST NAME
+           ====================================================== -->
+
       <div class="form-group">
         <label for="firstName">First Name</label>
 
@@ -18,7 +22,10 @@
         />
       </div>
 
-      <!-- Last Name -->
+      <!-- ======================================================
+           LAST NAME
+           ====================================================== -->
+
       <div class="form-group">
         <label for="lastName">Last Name</label>
 
@@ -32,7 +39,10 @@
         />
       </div>
 
-      <!-- Email -->
+      <!-- ======================================================
+           EMAIL
+           ====================================================== -->
+
       <div class="form-group">
         <label for="email">Email</label>
 
@@ -44,9 +54,18 @@
           placeholder="example@email.com"
           required
         />
+
+        <!-- @if (email.length > 0) {
+          <small class="email-requirement" [class.valid]="isEmailValid()">
+            {{ isEmailValid() ? '✓ Email is valid.' : 'Email must contain @.' }}
+          </small>
+        } -->
       </div>
 
-      <!-- Password -->
+      <!-- ======================================================
+           PASSWORD
+           ====================================================== -->
+
       <div class="form-group">
         <label for="password">Password</label>
 
@@ -73,15 +92,25 @@
           </button>
         </div>
 
-        <small>
-          Password must contain at least 12 characters, an uppercase letter, a number, and a special
-          character.
+        <!-- ====================================================
+             ONE PASSWORD REQUIREMENT MESSAGE
+             ==================================================== -->
+
+        <small class="password-requirement" [class.valid]="isPasswordValid()">
+          {{
+            isPasswordValid()
+              ? ''
+              : 'Password must contain at least 12 characters, an uppercase letter, a number, and a special character.'
+          }}
         </small>
       </div>
 
-      <!-- Confirm Password -->
+      <!-- ======================================================
+           CONFIRM PASSWORD
+           ====================================================== -->
+
       <div class="form-group">
-        <label for="confirmPassword">Confirm Password</label>
+        <label for="confirmPassword"> Confirm Password </label>
 
         <div class="password-input">
           <input
@@ -105,41 +134,64 @@
             </mat-icon>
           </button>
         </div>
+
+        <small *ngIf="confirmPassword?.length > 0 && !passwordsMatch()" class="confirm-error"> ✗ Passwords do not match. </small>
+
+
+        <small *ngIf="passwordsMatch()" class="confirm-valid"> ✓ Passwords match. </small>
+
       </div>
 
-      <!-- Role -->
+      <!-- ======================================================
+           ROLE
+           ====================================================== -->
+
       <div class="form-group">
         <label for="role">Role</label>
 
         <select id="role" name="role" [(ngModel)]="role">
           <option value="Student">Student</option>
+
           <option value="Instructor">Instructor</option>
+
           <option value="Admin">Admin</option>
         </select>
       </div>
 
-      <!-- Error -->
-      @if (errorMessage()) {
-        <div class="error-message">
-          {{ errorMessage() }}
-        </div>
-      }
+      <!-- ======================================================
+           ERROR MESSAGE
+           ====================================================== -->
 
-      <!-- Success -->
-      @if (successMessage()) {
-        <div class="success-message">
-          {{ successMessage() }}
-        </div>
-      }
+      <div *ngIf="errorMessage()" class="error-message" role="alert">
+        {{ errorMessage() }}
+      </div>
 
-      <!-- Submit -->
+
+      <!-- ======================================================
+           SUCCESS MESSAGE
+           ====================================================== -->
+
+      <div *ngIf="successMessage()" class="success-message" role="status">
+        {{ successMessage() }}
+      </div>
+
+
+      <!-- ======================================================
+           REGISTER BUTTON
+           ====================================================== -->
+
       <button type="submit" [disabled]="loading()">
         {{ loading() ? 'Creating account...' : 'Register' }}
       </button>
     </form>
 
+    <!-- ========================================================
+         LOGIN LINK
+         ======================================================== -->
+
     <p class="switch-page">
       Already have an account?
+
       <a routerLink="/login"> Sign In </a>
     </p>
   </div>

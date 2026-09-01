@@ -8,10 +8,14 @@
       <p class="page-description">Manage TMS courses and course ownership.</p>
     </div>
 
-    <!-- Add Course button -->
-    <button type="button" class="btn-add" (click)="addCourse()">+ Add Course</button>
+    <div class="header-actions">
+      <button type="button" class="btn-assign-page" (click)="assignInstructorPage()">
+        Assign Instructor
+      </button>
 
-    <!-- Admin badge -->
+      <button type="button" class="btn-add" (click)="addCourse()">+ Add Course</button>
+    </div>
+
     <div class="admin-badge">Admin</div>
   </header>
 

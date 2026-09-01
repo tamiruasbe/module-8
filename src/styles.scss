@@ -38,3 +38,45 @@ body {
 }
 /* You can add global styles to this file, and also import other style files */
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
+.center-snackbar {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  margin: 0 !important;
+
+  .mdc-snackbar__surface {
+    background-color: #064e3b !important;
+    border: 1px solid #10b981 !important;
+    border-radius: 10px !important;
+    box-shadow: 0 10px 30px rgb(0 0 0 / 40%) !important;
+  }
+
+  .mat-mdc-snack-bar-label {
+    color: #a7f3d0 !important;
+    font-weight: 900 !important;
+  }
+
+  .mat-mdc-button {
+    color: #ffffff !important;
+    font-weight: 900 !important;
+  }
+}
+.error-snackbar {
+  .mdc-snackbar__surface {
+    background-color: #450a0a !important;
+    border: 1px solid #ef4444 !important;
+    border-radius: 10px !important;
+    box-shadow: 0 10px 30px rgb(0 0 0 / 40%) !important;
+  }
+
+  .mat-mdc-snack-bar-label {
+    color: #fecaca !important;
+    font-weight: 900 !important;
+  }
+
+  .mat-mdc-button {
+    color: #ffffff !important;
+    font-weight: 900 !important;
+  }
+}

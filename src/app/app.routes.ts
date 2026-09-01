@@ -78,6 +78,14 @@ export const routes: Routes = [
     canActivate: [roleGuard('Admin', 'Instructor')],
   },
   {
+    path: 'admin/assign-instructor',
+
+    loadComponent: () =>
+      import('./features/assign-instructor/assign-instructor').then((m) => m.AssignInstructor),
+
+    canActivate: [roleGuard('Admin')],
+  },
+  {
     path: 'unauthorized',
     loadComponent: () => import('./features/unauthorized/unauthorized').then((m) => m.Unauthorized),
   },

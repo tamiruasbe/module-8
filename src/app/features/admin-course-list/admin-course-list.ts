@@ -2,6 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CourseStore } from '../../store/course.store';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'tms-admin-course-list',
@@ -12,7 +13,7 @@ import { CourseStore } from '../../store/course.store';
 export class AdminCourseList implements OnInit {
   readonly store = inject(CourseStore);
   readonly auth = inject(AuthService);
-
+  private readonly snackBar = inject(MatSnackBar);
   private router = inject(Router);
 
   // The course whose error message should currently be displayed
@@ -38,13 +39,12 @@ export class AdminCourseList implements OnInit {
 
     this.store.deleteCourse(id).subscribe({
       next: () => {
-        this.deleteSuccessCourseId.set(id);
-        this.deleteSuccessMessage.set('Course deleted successfully.');
-
-        setTimeout(() => {
-          this.deleteSuccessCourseId.set(null);
-          this.deleteSuccessMessage.set('');
-        }, 3000);
+        this.snackBar.open('Course deleted successfully.', 'Close', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: ['center-snackbar'],
+        });
       },
 
       error: (error) => {
@@ -58,19 +58,12 @@ export class AdminCourseList implements OnInit {
           error?.message ??
           'Cannot delete course because active student enrollments exist.';
 
-        console.log('DELETE MESSAGE:', message);
-
-        // Put the error on THIS course card
-        this.deleteErrorCourseId.set(id);
-        this.deleteErrorMessage.set(message);
-
-        // Automatically hide it after 5 seconds
-        setTimeout(() => {
-          if (this.deleteErrorCourseId() === id) {
-            this.deleteErrorCourseId.set(null);
-            this.deleteErrorMessage.set('');
-          }
-        }, 5000);
+        this.snackBar.open(message, 'Close', {
+          duration: 5000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: ['center-snackbar', 'error-snackbar'],
+        });
       },
     });
   }
@@ -80,5 +73,9 @@ export class AdminCourseList implements OnInit {
   }
   addCourse(): void {
     this.router.navigate(['/admin/courses/new']);
+  }
+
+  assignInstructorPage(): void {
+    this.router.navigate(['/admin/assign-instructor']);
   }
 }

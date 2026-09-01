@@ -1,0 +1,161 @@
+<div class="assign-page">
+  <!-- ============================================================
+       HEADER
+       ============================================================ -->
+
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">Administration</p>
+
+      <h1>Assign Instructors</h1>
+
+      <p class="page-description">Assign instructors to courses and manage course ownership.</p>
+    </div>
+
+    <button type="button" class="btn-back" (click)="backToCourses()">← Course Management</button>
+  </header>
+
+  <!-- ============================================================
+       SUCCESS MESSAGE
+       ============================================================ -->
+
+  @if (successMessage()) {
+    <div class="success-banner" role="status">✓ {{ successMessage() }}</div>
+  }
+
+  <!-- ============================================================
+       ERROR MESSAGE
+       ============================================================ -->
+
+  @if (errorMessage()) {
+    <div class="error-banner" role="alert">! {{ errorMessage() }}</div>
+  }
+
+  <!-- ============================================================
+       LOADING
+       ============================================================ -->
+
+  @if (isLoadingCourses() || isLoadingInstructors()) {
+    <div class="loading-message">Loading courses and instructors...</div>
+  }
+
+  <!-- ============================================================
+       COURSE LIST
+       ============================================================ -->
+
+  @if (!isLoadingCourses() && !isLoadingInstructors()) {
+    @if (courses().length === 0) {
+      <div class="empty-state">No courses found.</div>
+    }
+
+    @if (courses().length > 0) {
+      <section class="course-grid">
+        @for (course of courses(); track course.id) {
+          <article class="course-card">
+            <!-- ==================================================
+                 COURSE HEADER
+                 ================================================== -->
+
+            <div class="course-header">
+              <div>
+                <span class="course-code">
+                  {{ course.code }}
+                </span>
+
+                <h2>
+                  {{ course.title }}
+                </h2>
+              </div>
+            </div>
+
+            <!-- ==================================================
+                 COURSE INFORMATION
+                 ================================================== -->
+
+            <div class="course-info">
+              <div class="info-row">
+                <span> Maximum capacity </span>
+
+                <strong>
+                  {{ course.maxCapacity }}
+                </strong>
+              </div>
+
+              <div class="info-row">
+                <span> Enrolled students </span>
+
+                <strong>
+                  {{ course.enrollmentCount }}
+                </strong>
+              </div>
+
+              <div class="info-row">
+                <span> Current instructor </span>
+
+                <strong [class.not-assigned]="!course.instructorId">
+                  {{ getInstructorName(course.instructorId) }}
+                </strong>
+              </div>
+            </div>
+
+            <!-- ==================================================
+                 ASSIGN INSTRUCTOR
+                 ================================================== -->
+
+            <div class="assignment-section">
+              <label [for]="'instructor-' + course.id"> Select instructor </label>
+
+              <select
+                [id]="'instructor-' + course.id"
+                [value]="selectedInstructor()[course.id] ?? course.instructorId ?? ''"
+                (change)="selectInstructor(course.id, $any($event.target).value)"
+              >
+                <option value="">-- Select Instructor --</option>
+
+                @for (instructor of instructors(); track instructor.id) {
+                  <option [value]="instructor.id">
+                    {{ instructor.firstName }}
+                    {{ instructor.lastName }}
+
+                    —
+                    {{ instructor.email }}
+                  </option>
+                }
+              </select>
+            </div>
+
+            <!-- ==================================================
+                 ACTIONS
+                 ================================================== -->
+
+            <div class="course-actions">
+              <button
+                type="button"
+                class="btn-assign"
+                [disabled]="assigningCourseId() === course.id || !selectedInstructor()[course.id]"
+                (click)="assignInstructor(course)"
+              >
+                @if (assigningCourseId() === course.id) {
+                  Assigning...
+                } @else {
+                  Assign Instructor
+                }
+              </button>
+
+              @if (course.instructorId) {
+                <button
+                  type="button"
+                  class="btn-remove"
+                  [disabled]="assigningCourseId() === course.id"
+                  (click)="removeInstructor(course)"
+                >
+                  Remove
+                </button>
+              }
+            </div>
+          </article>
+        }
+      </section>
+    }
+  }
+</div>

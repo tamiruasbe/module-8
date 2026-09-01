@@ -1,17 +1,9 @@
-/* =========================================================
-   ADMIN COURSE PAGE
-   ========================================================= */
-
 .admin-page {
   min-height: 100vh;
   padding: 2rem;
   background: #020617;
   color: #e2e8f0;
 }
-
-/* =========================================================
-   PAGE HEADER
-   ========================================================= */
 
 .page-header {
   position: relative;
@@ -55,18 +47,16 @@ h1 {
   font-size: 0.95rem;
 }
 
-/* =========================================================
-   ADD COURSE BUTTON
-   CENTER OF HEADER
-   ========================================================= */
+.header-actions {
+  display: flex;
+
+  align-items: center;
+
+  gap: 0.75rem;
+}
 
 .btn-add {
-  position: absolute;
-
-  top: 0;
-  left: 50%;
-
-  transform: translateX(-50%);
+  position: static;
 
   padding: 0.7rem 1.25rem;
 
@@ -81,6 +71,8 @@ h1 {
   font-size: 0.9rem;
   font-weight: 700;
 
+  white-space: nowrap;
+
   transition:
     background 200ms ease,
     box-shadow 200ms ease,
@@ -92,17 +84,45 @@ h1 {
 
   box-shadow: 0 6px 18px rgb(22 163 74 / 30%);
 
-  transform: translateX(-50%) translateY(-1px);
+  transform: translateY(-1px);
 }
 
 .btn-add:active {
-  transform: translateX(-50%) translateY(1px);
+  transform: translateY(1px);
 }
 
-/* =========================================================
-   ADMIN BADGE
-   RIGHT SIDE
-   ========================================================= */
+.btn-assign-page {
+  position: static;
+
+  padding: 0.7rem 1.1rem;
+
+  border: none;
+  border-radius: 0.6rem;
+
+  background: #7c3aed;
+  color: #ffffff;
+
+  cursor: pointer;
+
+  font-size: 0.85rem;
+  font-weight: 700;
+
+  white-space: nowrap;
+
+  transition:
+    background 200ms ease,
+    transform 150ms ease;
+}
+
+.btn-assign-page:hover {
+  background: #6d28d9;
+
+  transform: translateY(-1px);
+}
+
+.btn-assign-page:active {
+  transform: translateY(1px);
+}
 
 .admin-badge {
   padding: 0.5rem 0.9rem;
@@ -119,10 +139,6 @@ h1 {
   white-space: nowrap;
 }
 
-/* =========================================================
-   GENERAL ERROR
-   ========================================================= */
-
 .error-banner {
   margin-bottom: 1.5rem;
   padding: 1rem;
@@ -136,10 +152,6 @@ h1 {
   font-size: 0.9rem;
 }
 
-/* =========================================================
-   LOADING / EMPTY
-   ========================================================= */
-
 .loading-message,
 .empty-state {
   padding: 2rem;
@@ -152,10 +164,6 @@ h1 {
   text-align: center;
 }
 
-/* =========================================================
-   COURSE GRID
-   ========================================================= */
-
 .course-grid {
   display: grid;
 
@@ -163,10 +171,6 @@ h1 {
 
   gap: 1.5rem;
 }
-
-/* =========================================================
-   COURSE CARD
-   ========================================================= */
 
 .course-card {
   overflow: hidden;
@@ -191,10 +195,6 @@ h1 {
 
   box-shadow: 0 16px 35px rgb(0 0 0 / 30%);
 }
-
-/* =========================================================
-   COURSE CARD HEADER
-   ========================================================= */
 
 .course-card-header {
   display: flex;
@@ -233,10 +233,6 @@ h1 {
   line-height: 1.35;
 }
 
-/* =========================================================
-   COURSE STATUS
-   ========================================================= */
-
 .course-status {
   padding: 0.3rem 0.6rem;
 
@@ -259,10 +255,6 @@ h1 {
   background: #451a03;
   color: #fed7aa;
 }
-
-/* =========================================================
-   COURSE DETAILS
-   ========================================================= */
 
 .course-details {
   display: grid;
@@ -294,10 +286,6 @@ h1 {
   font-weight: 700;
 }
 
-/* =========================================================
-   CAPACITY BAR
-   ========================================================= */
-
 .capacity-bar {
   height: 0.5rem;
 
@@ -320,10 +308,6 @@ h1 {
   transition: width 300ms ease;
 }
 
-/* =========================================================
-   COURSE ACTIONS
-   ========================================================= */
-
 .course-actions {
   display: flex;
 
@@ -334,10 +318,6 @@ h1 {
 
   padding: 1.25rem;
 }
-
-/* =========================================================
-   EDIT BUTTON
-   ========================================================= */
 
 .btn-edit {
   padding: 0.65rem 1rem;
@@ -369,10 +349,6 @@ h1 {
   transform: translateY(1px);
 }
 
-/* =========================================================
-   DELETE BUTTON
-   ========================================================= */
-
 .btn-danger {
   padding: 0.65rem 1rem;
 
@@ -402,10 +378,6 @@ h1 {
 .btn-danger:active {
   transform: translateY(1px);
 }
-
-/* =========================================================
-   DELETE ERROR
-   ========================================================= */
 
 .course-delete-error {
   display: flex;
@@ -457,10 +429,6 @@ h1 {
   min-width: 0;
 }
 
-/* =========================================================
-   DELETE SUCCESS
-   ========================================================= */
-
 .course-delete-success {
   margin: 0 1.25rem;
 
@@ -477,10 +445,6 @@ h1 {
   line-height: 1.45;
 }
 
-/* =========================================================
-   SNACKBAR
-   ========================================================= */
-
 .course-snackbar {
   position: fixed !important;
 
@@ -489,28 +453,35 @@ h1 {
   margin: 0 !important;
 }
 
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
 @media (max-width: 640px) {
   .admin-page {
     padding: 1rem;
   }
 
   /* Header becomes vertical */
+
   .page-header {
     flex-direction: column;
 
     align-items: stretch;
 
     gap: 1rem;
-
-    padding-bottom: 0;
   }
 
-  /* Add button returns to normal flow */
-  .btn-add {
+  /* Header buttons */
+
+  .header-actions {
+    width: 100%;
+
+    flex-direction: column;
+
+    align-items: stretch;
+
+    gap: 0.75rem;
+  }
+
+  .btn-add,
+  .btn-assign-page {
     position: static;
 
     width: 100%;
@@ -518,25 +489,30 @@ h1 {
     transform: none;
   }
 
-  .btn-add:hover {
+  .btn-add:hover,
+  .btn-assign-page:hover {
     transform: translateY(-1px);
   }
 
-  .btn-add:active {
+  .btn-add:active,
+  .btn-assign-page:active {
     transform: translateY(1px);
   }
 
   /* Admin badge */
+
   .admin-badge {
     align-self: flex-end;
   }
 
   /* Course header */
+
   .course-card-header {
     flex-direction: column;
   }
 
   /* Course actions */
+
   .course-actions {
     justify-content: stretch;
 
@@ -550,10 +526,6 @@ h1 {
     width: 100%;
   }
 }
-
-/* =========================================================
-   SMALL MOBILE
-   ========================================================= */
 
 @media (max-width: 400px) {
   .admin-page {

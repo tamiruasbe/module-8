@@ -1,0 +1,392 @@
+/* =========================================================
+   ASSIGN INSTRUCTOR PAGE
+   ========================================================= */
+
+.assign-page {
+  min-height: 100vh;
+  padding: 2rem;
+
+  background: #020617;
+  color: #e2e8f0;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.page-header {
+  display: flex;
+
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 2rem;
+
+  margin-bottom: 2rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.5rem;
+
+  color: #38bdf8;
+
+  font-size: 0.75rem;
+  font-weight: 700;
+
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+
+  color: #f8fafc;
+
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.page-description {
+  margin: 0.75rem 0 0;
+
+  color: #94a3b8;
+
+  font-size: 0.95rem;
+}
+
+/* =========================================================
+   BACK BUTTON
+   ========================================================= */
+
+.btn-back {
+  padding: 0.7rem 1.1rem;
+
+  border: 1px solid #334155;
+  border-radius: 0.6rem;
+
+  background: #0f172a;
+  color: #e2e8f0;
+
+  cursor: pointer;
+
+  font-size: 0.85rem;
+  font-weight: 700;
+
+  transition:
+    background 200ms ease,
+    border-color 200ms ease;
+}
+
+.btn-back:hover {
+  background: #1e293b;
+
+  border-color: #475569;
+}
+
+/* =========================================================
+   SUCCESS
+   ========================================================= */
+
+.success-banner {
+  margin-bottom: 1.5rem;
+
+  padding: 1rem;
+
+  border: 1px solid #047857;
+  border-radius: 0.75rem;
+
+  background: #064e3b;
+  color: #a7f3d0;
+
+  font-size: 0.9rem;
+}
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+.error-banner {
+  margin-bottom: 1.5rem;
+
+  padding: 1rem;
+
+  border: 1px solid #991b1b;
+  border-radius: 0.75rem;
+
+  background: #450a0a;
+  color: #fecaca;
+
+  font-size: 0.9rem;
+}
+
+/* =========================================================
+   LOADING / EMPTY
+   ========================================================= */
+
+.loading-message,
+.empty-state {
+  padding: 2rem;
+
+  border: 1px dashed #334155;
+  border-radius: 0.75rem;
+
+  color: #94a3b8;
+
+  text-align: center;
+}
+
+/* =========================================================
+   COURSE GRID
+   ========================================================= */
+
+.course-grid {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+
+  gap: 1.5rem;
+}
+
+/* =========================================================
+   COURSE CARD
+   ========================================================= */
+
+.course-card {
+  overflow: hidden;
+
+  border: 1px solid #1e293b;
+  border-radius: 1rem;
+
+  background: #0f172a;
+
+  box-shadow: 0 12px 30px rgb(0 0 0 / 20%);
+
+  transition:
+    transform 200ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.course-card:hover {
+  transform: translateY(-3px);
+
+  border-color: #334155;
+
+  box-shadow: 0 16px 35px rgb(0 0 0 / 30%);
+}
+
+/* =========================================================
+   COURSE HEADER
+   ========================================================= */
+
+.course-header {
+  padding: 1.25rem;
+
+  border-bottom: 1px solid #1e293b;
+}
+
+.course-code {
+  color: #38bdf8;
+
+  font-size: 0.8rem;
+  font-weight: 700;
+
+  letter-spacing: 0.08em;
+}
+
+.course-header h2 {
+  margin: 0.5rem 0 0;
+
+  color: #f8fafc;
+
+  font-size: 1.2rem;
+  font-weight: 700;
+
+  line-height: 1.35;
+}
+
+/* =========================================================
+   COURSE INFORMATION
+   ========================================================= */
+
+.course-info {
+  display: grid;
+
+  gap: 0.8rem;
+
+  padding: 1.25rem;
+}
+
+.info-row {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 1rem;
+}
+
+.info-row span {
+  color: #94a3b8;
+
+  font-size: 0.85rem;
+}
+
+.info-row strong {
+  color: #f8fafc;
+
+  font-size: 0.9rem;
+
+  text-align: right;
+}
+
+.info-row strong.not-assigned {
+  color: #fbbf24;
+}
+
+/* =========================================================
+   ASSIGNMENT SECTION
+   ========================================================= */
+
+.assignment-section {
+  display: grid;
+
+  gap: 0.6rem;
+
+  padding: 0 1.25rem 1.25rem;
+}
+
+.assignment-section label {
+  color: #cbd5e1;
+
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.assignment-section select {
+  width: 100%;
+
+  padding: 0.75rem;
+
+  border: 1px solid #334155;
+
+  border-radius: 0.6rem;
+
+  background: #020617;
+  color: #f8fafc;
+
+  cursor: pointer;
+
+  outline: none;
+}
+
+.assignment-section select:focus {
+  border-color: #38bdf8;
+
+  box-shadow: 0 0 0 3px rgb(56 189 248 / 10%);
+}
+
+/* =========================================================
+   ACTIONS
+   ========================================================= */
+
+.course-actions {
+  display: flex;
+
+  gap: 0.75rem;
+
+  padding: 1.25rem;
+
+  border-top: 1px solid #1e293b;
+}
+
+/* =========================================================
+   ASSIGN BUTTON
+   ========================================================= */
+
+.btn-assign {
+  flex: 1;
+
+  padding: 0.7rem 1rem;
+
+  border: none;
+  border-radius: 0.55rem;
+
+  background: #2563eb;
+  color: white;
+
+  cursor: pointer;
+
+  font-size: 0.85rem;
+  font-weight: 700;
+
+  transition:
+    background 200ms ease,
+    opacity 200ms ease;
+}
+
+.btn-assign:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.btn-assign:disabled {
+  opacity: 0.45;
+
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   REMOVE BUTTON
+   ========================================================= */
+
+.btn-remove {
+  padding: 0.7rem 1rem;
+
+  border: 1px solid #991b1b;
+  border-radius: 0.55rem;
+
+  background: #450a0a;
+  color: #fecaca;
+
+  cursor: pointer;
+
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.btn-remove:hover:not(:disabled) {
+  background: #7f1d1d;
+}
+
+.btn-remove:disabled {
+  opacity: 0.45;
+
+  cursor: not-allowed;
+}
+
+@media (max-width: 700px) {
+  .assign-page {
+    padding: 1rem;
+  }
+
+  .page-header {
+    flex-direction: column;
+  }
+
+  .btn-back {
+    width: 100%;
+  }
+
+  .course-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .course-actions {
+    flex-direction: column;
+  }
+
+  .btn-assign,
+  .btn-remove {
+    width: 100%;
+  }
+}

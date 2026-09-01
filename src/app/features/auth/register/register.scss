@@ -1,135 +1,148 @@
 :host {
   display: block;
   min-height: 100vh;
+
   background: #f4f6f8;
+
   padding: 40px 20px;
 }
+
+/* ============================================================
+   CONTAINER
+   ============================================================ */
 
 .auth-container {
   width: 100%;
   max-width: 500px;
+
   margin: 20px auto;
   padding: 32px;
 
-  background: white;
+  background: #ffffff;
+
   border-radius: 12px;
 
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+
+  box-sizing: border-box;
 }
 
-h2 {
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.auth-card h1 {
   margin-bottom: 8px;
+
   text-align: center;
 }
 
-.subtitle {
+.auth-card > p {
   text-align: center;
+
   color: #666;
+
   margin-bottom: 28px;
 }
+
+/* ============================================================
+   FORM
+   ============================================================ */
 
 .form-group {
   display: flex;
   flex-direction: column;
+
   margin-bottom: 16px;
 }
 
 label {
   margin-bottom: 7px;
+
+  color: #1f2937;
+
   font-weight: 600;
 }
 
+/* ============================================================
+   INPUTS
+   ============================================================ */
+
 input,
 select {
+  width: 100%;
+
   padding: 12px;
+
   border: 1px solid #ccc;
+
   border-radius: 7px;
+
   font-size: 16px;
 
   box-sizing: border-box;
+
+  background: #ffffff;
 }
 
 input:focus,
 select:focus {
   outline: none;
+
   border-color: #2563eb;
+
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
 }
 
-button {
-  width: 100%;
-  padding: 12px;
-  margin-top: 8px;
+/* ============================================================
+   EMAIL VALIDATION
+   ============================================================ */
 
-  border: none;
-  border-radius: 7px;
+.email-requirement {
+  display: block;
 
-  background: #2563eb;
-  color: white;
+  margin-top: 6px;
 
-  font-size: 16px;
+  color: #dc2626;
+
+  font-size: 0.8rem;
+
   font-weight: 600;
 
-  cursor: pointer;
+  transition: color 0.2s ease;
 }
 
-button:hover {
-  background: #1d4ed8;
+.email-requirement.valid {
+  color: #16a34a;
 }
 
-button:disabled {
-  background: #9ca3af;
-  cursor: not-allowed;
-}
+/* ============================================================
+   PASSWORD INPUT
+   ============================================================ */
 
-.success {
-  margin-bottom: 15px;
-  padding: 10px;
-
-  background: #dcfce7;
-  color: #166534;
-
-  border-radius: 6px;
-}
-
-.error {
-  margin-bottom: 15px;
-  padding: 10px;
-
-  background: #fee2e2;
-  color: #b91c1c;
-
-  border-radius: 6px;
-}
-
-.login-link {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.login-link a {
-  color: #2563eb;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.login-link a:hover {
-  text-decoration: underline;
-}
 .password-input {
   position: relative;
+
   display: flex;
   align-items: center;
 }
 
 .password-input input {
   width: 100%;
+
   padding-right: 48px;
 }
 
+/* ============================================================
+   PASSWORD VISIBILITY BUTTON
+   ============================================================ */
+
 .visibility-button {
   position: absolute;
+
   right: 4px;
   top: 50%;
+
   transform: translateY(-50%);
 
   width: 40px;
@@ -139,7 +152,9 @@ button:disabled {
   padding: 0;
 
   background: transparent;
+
   color: #666;
+
   border: none;
 
   display: flex;
@@ -151,9 +166,178 @@ button:disabled {
 
 .visibility-button:hover {
   background: transparent;
+
   color: #2563eb;
 }
 
 .visibility-button mat-icon {
   font-size: 22px;
+}
+
+/* ============================================================
+   PASSWORD REQUIREMENT
+   ============================================================ */
+
+.password-requirement {
+  display: block;
+
+  margin-top: 6px;
+
+  color: #dc2626;
+
+  font-size: 0.8rem;
+
+  font-weight: 600;
+
+  line-height: 1.4;
+
+  transition: color 0.2s ease;
+}
+
+.password-requirement.valid {
+  color: #16a34a;
+}
+
+/* ============================================================
+   CONFIRM PASSWORD
+   ============================================================ */
+
+.confirm-error {
+  display: block;
+
+  margin-top: 6px;
+
+  color: #dc2626;
+
+  font-size: 0.8rem;
+
+  font-weight: 600;
+}
+
+.confirm-valid {
+  display: block;
+
+  margin-top: 6px;
+
+  color: #16a34a;
+
+  font-size: 0.8rem;
+
+  font-weight: 600;
+}
+
+/* ============================================================
+   ERROR MESSAGE
+   ============================================================ */
+
+.error-message {
+  margin-bottom: 15px;
+
+  padding: 10px;
+
+  background: #fee2e2;
+
+  color: #b91c1c;
+
+  border: 1px solid #fecaca;
+
+  border-radius: 6px;
+
+  font-weight: 600;
+}
+
+/* ============================================================
+   SUCCESS MESSAGE
+   ============================================================ */
+
+.success-message {
+  margin-bottom: 15px;
+
+  padding: 10px;
+
+  background: #dcfce7;
+
+  color: #166534;
+
+  border: 1px solid #bbf7d0;
+
+  border-radius: 6px;
+
+  font-weight: 600;
+}
+
+/* ============================================================
+   REGISTER BUTTON
+   ============================================================ */
+
+.auth-card > form > button {
+  width: 100%;
+
+  padding: 12px;
+
+  margin-top: 8px;
+
+  border: none;
+
+  border-radius: 7px;
+
+  background: #2563eb;
+
+  color: #ffffff;
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.auth-card > form > button:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.auth-card > form > button:disabled {
+  background: #9ca3af;
+
+  cursor: not-allowed;
+}
+
+/* ============================================================
+   LOGIN LINK
+   ============================================================ */
+
+.switch-page {
+  margin-top: 20px;
+
+  text-align: center;
+}
+
+.switch-page a {
+  color: #2563eb;
+
+  font-weight: 600;
+
+  text-decoration: none;
+}
+
+.switch-page a:hover {
+  text-decoration: underline;
+}
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 600px) {
+  :host {
+    padding: 20px 12px;
+  }
+
+  .auth-container {
+    padding: 24px 20px;
+  }
 }
