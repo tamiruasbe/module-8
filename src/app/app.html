@@ -10,7 +10,7 @@
       <!-- Student + Instructor + Admin -->
       <!-- ====================================== -->
 
-      @if (auth.hasAnyRole(['Student', 'Instructor', 'Admin'])) {
+      @if (auth.hasAnyRole(['Student'])) {
         <a mat-button routerLink="/student-dashboard" routerLinkActive="active-link">
           Student Dashboard
         </a>
@@ -26,7 +26,7 @@
       <!-- Instructor + Admin -->
       <!-- ====================================== -->
 
-      @if (auth.hasAnyRole(['Instructor', 'Admin'])) {
+      @if (auth.hasAnyRole(['Instructor'])) {
         <a mat-button routerLink="/instructor-dashboard" routerLinkActive="active-link">
           Instructor Dashboard
         </a>
@@ -54,7 +54,7 @@
       <!-- Student + Admin -->
       <!-- ====================================== -->
 
-      @if (auth.hasAnyRole(['Student', 'Admin'])) {
+      @if (auth.hasAnyRole(['Student'])) {
         <a mat-button routerLink="/enroll" routerLinkActive="active-link"> Enroll Form </a>
       }
 
@@ -63,7 +63,7 @@
       <!-- Student + Instructor + Admin -->
       <!-- ====================================== -->
 
-      @if (auth.hasAnyRole(['Student', 'Instructor', 'Admin'])) {
+      @if (auth.hasAnyRole(['Student'])) {
         <a mat-button routerLink="/courses/101" routerLinkActive="active-link"> Course Detail </a>
       }
 
@@ -72,7 +72,7 @@
       <!-- Instructor + Admin -->
       <!-- ====================================== -->
 
-      @if (auth.hasAnyRole(['Instructor', 'Admin'])) {
+      @if (auth.hasAnyRole(['Instructor'])) {
         <a mat-button routerLink="/grade-submission" routerLinkActive="active-link">
           Grade Submission
         </a>

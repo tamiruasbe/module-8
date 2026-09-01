@@ -46,38 +46,45 @@ export class AuthService {
   // ACCESS TOKEN
   // ==========================================
 
-  // The JWT access token is stored only in memory.
+  // Access token remains in memory.
   //
-  // We do NOT store it in:
+  // We do NOT store the access token in:
   //
   // localStorage
   // sessionStorage
-  //
-  // This reduces the risk of token theft through
-  // browser storage.
 
   private accessToken = signal<string | null>(null);
 
   // ==========================================
-  // CURRENT LOGGED-IN USER
+  // REFRESH TOKEN
+  // ==========================================
+
+  // The refresh token is persisted so that
+  // authentication can be restored after a
+  // browser refresh.
+
+  private refreshToken = signal<string | null>(sessionStorage.getItem('tms_refresh_token'));
+
+  // ==========================================
+  // CURRENT USER
   // ==========================================
 
   currentUser = signal<TmsUser | null>(null);
+
+  // ==========================================
+  // AUTHENTICATION RESTORATION
+  // ==========================================
+
+  private restoringSession = signal(false);
 
   // ==========================================
   // REGISTER
   // ==========================================
 
   async register(request: RegisterRequest): Promise<string> {
-    // Step 1:
-    // Send registration information to the API.
-
     const response = await firstValueFrom(
       this.http.post<RegisterResponse>(`${this.base}/register`, request),
     );
-
-    // Step 2:
-    // Return the registration message.
 
     return response.message;
   }
@@ -87,55 +94,71 @@ export class AuthService {
   // ==========================================
 
   async login(credentials: LoginRequest): Promise<void> {
-    // Step 1:
-    // Send email and password to the API.
-    //
-    // The API validates:
-    //
-    // 1. User exists.
-    // 2. Account is not locked.
-    // 3. Password is correct.
-    // 4. Failed attempts are counted.
-    // 5. Failed counter is reset after success.
-    //
-    // After successful authentication the API
-    // returns:
-    //
-    // accessToken
-    // refreshToken
-
     const response = await firstValueFrom(
       this.http.post<LoginResponse>(`${this.base}/login`, credentials),
     );
 
-    // ==========================================
-    // STEP 2: STORE ACCESS TOKEN IN MEMORY
-    // ==========================================
+    this.storeTokens(response.accessToken, response.refreshToken);
 
-    this.accessToken.set(response.accessToken);
+    this.setCurrentUserFromAccessToken(response.accessToken);
+  }
 
-    // ==========================================
-    // STEP 3: DECODE JWT PAYLOAD
-    // ==========================================
+  // ==========================================
+  // REFRESH SESSION
+  // ==========================================
 
-    // JWT structure:
-    //
-    // HEADER.PAYLOAD.SIGNATURE
-    //
-    // We decode the payload to obtain user
-    // information for Angular UI.
-    //
-    // IMPORTANT:
-    // This does NOT verify the JWT.
-    //
-    // The ASP.NET Core API verifies the signature
-    // when the token is sent back to the server.
+  async restoreSession(): Promise<boolean> {
+    const storedRefreshToken = this.refreshToken();
 
-    const payload = JSON.parse(atob(response.accessToken.split('.')[1]));
+    if (!storedRefreshToken) {
+      return false;
+    }
 
-    // ==========================================
-    // STEP 4: READ USER INFORMATION
-    // ==========================================
+    if (this.restoringSession()) {
+      return this.currentUser() !== null;
+    }
+
+    this.restoringSession.set(true);
+
+    try {
+      const response = await firstValueFrom(
+        this.http.post<LoginResponse>(`${this.base}/refresh`, {
+          refreshToken: storedRefreshToken,
+        }),
+      );
+
+      this.storeTokens(response.accessToken, response.refreshToken);
+
+      this.setCurrentUserFromAccessToken(response.accessToken);
+
+      return true;
+    } catch {
+      this.clearAuthentication();
+
+      return false;
+    } finally {
+      this.restoringSession.set(false);
+    }
+  }
+
+  // ==========================================
+  // STORE TOKENS
+  // ==========================================
+
+  private storeTokens(accessToken: string, refreshToken: string): void {
+    this.accessToken.set(accessToken);
+
+    this.refreshToken.set(refreshToken);
+
+    sessionStorage.setItem('tms_refresh_token', refreshToken);
+  }
+
+  // ==========================================
+  // CREATE USER FROM JWT
+  // ==========================================
+
+  private setCurrentUserFromAccessToken(accessToken: string): void {
+    const payload = JSON.parse(atob(accessToken.split('.')[1]));
 
     const userId =
       payload['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'] ??
@@ -154,19 +177,11 @@ export class AuthService {
       payload.role ??
       'Student';
 
-    // ==========================================
-    // STEP 5: STORE USER PROFILE
-    // ==========================================
-
     this.currentUser.set({
       userId,
-
       email,
-
       firstName,
-
       lastName: payload.LastName ?? payload.lastName ?? '',
-
       role,
     });
   }
@@ -175,20 +190,31 @@ export class AuthService {
   // GET ACCESS TOKEN
   // ==========================================
 
-  // The JWT interceptor uses this method.
-  //
-  // Example:
-  //
-  // Authorization: Bearer eyJhbGciOi...
-
   getAccessToken(): string | null {
     return this.accessToken();
   }
 
+  // ==========================================
+  // LOGOUT
+  // ==========================================
+
   logout(): void {
-    this.accessToken.set(null);
-    this.currentUser.set(null);
+    this.clearAuthentication();
   }
+
+  private clearAuthentication(): void {
+    this.accessToken.set(null);
+
+    this.refreshToken.set(null);
+
+    this.currentUser.set(null);
+
+    sessionStorage.removeItem('tms_refresh_token');
+  }
+
+  // ==========================================
+  // AUTHENTICATION STATUS
+  // ==========================================
 
   isLoggedIn(): boolean {
     return this.currentUser() !== null;

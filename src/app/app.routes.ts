@@ -10,11 +10,8 @@ export const routes: Routes = [
     canActivate: [roleGuard('Admin', 'Instructor')],
   },
   {
-    // path: 'dashboard',
-    // redirectTo: 'login',
-    // pathMatch: 'full',
     path: 'dashboard',
-    redirectTo: 'instructor-dashboard',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
   {
@@ -38,6 +35,7 @@ export const routes: Routes = [
     path: 'student-dashboard',
     loadComponent: () =>
       import('./features/student-dashboard/student-dashboard').then((m) => m.StudentDashboard),
+    canActivate: [roleGuard('Student')],
   },
   {
     path: 'instructor-dashboard',
@@ -46,6 +44,7 @@ export const routes: Routes = [
       import('./features/instructor-dashboard/instructor-dashboard').then(
         (m) => m.InstructorDashboard,
       ),
+    canActivate: [roleGuard('Instructor')],
   },
 
   {
