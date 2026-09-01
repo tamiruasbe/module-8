@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { RouterLink } from '@angular/router';
+// import { RouterLink } from '@angular/router';
 
 import {
   MatCardContent,
@@ -15,7 +15,7 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-unauthorized',
   standalone: true,
-  imports: [RouterLink, MatCardContent, MatCardActions, MatCard, MatCardHeader, MatCardTitle],
+  imports: [MatCardContent, MatCardActions, MatCard, MatCardHeader, MatCardTitle],
   templateUrl: './unauthorized.html',
   styleUrl: './unauthorized.scss',
 })

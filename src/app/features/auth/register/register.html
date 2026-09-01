@@ -135,11 +135,13 @@
           </button>
         </div>
 
-        <small *ngIf="confirmPassword?.length > 0 && !passwordsMatch()" class="confirm-error"> ✗ Passwords do not match. </small>
+        @if (confirmPassword?.length > 0 && !passwordsMatch()) {
+          <small class="confirm-error"> ✗ Passwords do not match. </small>
+        }
 
-
-        <small *ngIf="passwordsMatch()" class="confirm-valid"> ✓ Passwords match. </small>
-
+        @if (passwordsMatch()) {
+          <small class="confirm-valid"> ✓ Passwords match. </small>
+        }
       </div>
 
       <!-- ======================================================
@@ -162,19 +164,21 @@
            ERROR MESSAGE
            ====================================================== -->
 
-      <div *ngIf="errorMessage()" class="error-message" role="alert">
-        {{ errorMessage() }}
-      </div>
-
+      @if (errorMessage()) {
+        <div class="error-message" role="alert">
+          {{ errorMessage() }}
+        </div>
+      }
 
       <!-- ======================================================
            SUCCESS MESSAGE
            ====================================================== -->
 
-      <div *ngIf="successMessage()" class="success-message" role="status">
-        {{ successMessage() }}
-      </div>
-
+      @if (successMessage()) {
+        <div class="success-message" role="status">
+          {{ successMessage() }}
+        </div>
+      }
 
       <!-- ======================================================
            REGISTER BUTTON

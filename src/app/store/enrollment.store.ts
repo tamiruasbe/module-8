@@ -42,6 +42,9 @@ export const EnrollmentStore = signalStore(
   // Store Methods
   // ---------------------------------------------------------
   withMethods((store, api = inject(EnrollmentService), sync = inject(LiveSyncService)) => ({
+    seed: (rows: Enrollment[]) => {
+      patchState(store, setAllEntities(rows));
+    },
     // =====================================================
     // Load all enrollments
     // =====================================================

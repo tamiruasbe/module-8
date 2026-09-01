@@ -10,8 +10,11 @@ export const routes: Routes = [
     canActivate: [roleGuard('Admin', 'Instructor')],
   },
   {
+    // path: 'dashboard',
+    // redirectTo: 'login',
+    // pathMatch: 'full',
     path: 'dashboard',
-    redirectTo: 'login',
+    redirectTo: 'instructor-dashboard',
     pathMatch: 'full',
   },
   {
